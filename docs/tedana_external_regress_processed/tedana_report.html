@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>tedana report</title>
+    <meta
+      name="viewport"
+      content="width = device-width, initial-scale = 1"
+      charset="UTF-8"
+    />
+    <script
+      src="https://cdn.bokeh.org/bokeh/release/bokeh-3.6.2.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.6.2.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.6.2.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+      integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/tokyo-night-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
+
+    <script>
+      hljs.highlightAll();
+    </script>
+
+    <!-- CSS for the report -->
+    <style type="text/css">
+      body {
+        padding: 10px 20px 10px 20px;
+      }
+    </style>
+  </head>
+
+  <nav>
+    <div class="pure-menu pure-menu-horizontal">
+      <a
+        href="https://github.com/ME-ICA/tedana"
+        class="pure-menu-heading pure-menu-link"
+        >tedana 25.0.1</a
+      >
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+          <a href="https://tedana.readthedocs.io" class="pure-menu-link"
+            >Reporting documentation</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <body>
+    <style type="text/css">
+  .brainplot {
+    width: 50%;
+    height: auto;
+  }
+
+  .report {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 150px;
+    height: auto;
+    float: left;
+  }
+
+  .about {
+    position: relative;
+    top: -50px;
+    margin-left: 5%;
+    margin-right: 5%;
+    white-space: pre-line;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: larger;
+    float: left;
+    width: 80%;
+  }
+
+  .references ul {
+    line-height: 150%;
+  }
+
+  .carpet-wrapper {
+    margin-top: 30px;
+  }
+
+  .carpet-plots {
+    float: left;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 100px;
+  }
+
+  .carpet-buttons {
+    height: 40px;
+    padding-bottom: 5px;
+  }
+
+  .carpet-image {
+    margin-top: 20px;
+  }
+
+  .info {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 150px;
+    height: auto;
+    float: left;
+  }
+
+  .tsne-plots {
+    float: left;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 100px;
+  }
+
+  button {
+    margin-right: 15px;
+    width: auto;
+    border-radius: 6px;
+    border-top: none;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    float: left;
+    font-size: 18px;
+    font-weight: 700;
+    height: 40px;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  button:active {
+    width: auto;
+    border-radius: 6px;
+    border-top: none;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    margin-top: 3px;
+    float: left;
+  }
+
+  .blue {
+    background: #8caef9;
+    border-bottom: #6684c6 3px solid;
+    border-left: #6684c6 1px solid;
+    border-right: #6684c6 1px solid;
+  }
+
+  .blue:active {
+    background: #7fa5f8;
+    border-bottom: #6684c6 1px solid;
+    border-left: #6684c8 1px solid;
+    border-right: #6684c6 1px solid;
+  }
+
+  .red {
+    background: #ec5e57;
+    border-bottom: #bb3d36 3px solid;
+    border-left: #bb3d36 1px solid;
+    border-right: #bb3d36 1px solid;
+  }
+
+  .red:active {
+    background: #ea4c44;
+    border-bottom: #bb3d36 1px solid;
+    border-left: #bb3d36 1px solid;
+    border-right: #bb3d36 1px solid;
+  }
+
+  .green {
+    background: #74ca74;
+    border-bottom: #509d51 3px solid;
+    border-left: #509d51 1px solid;
+    border-right: #509d51 1px solid;
+  }
+
+  .green:active {
+    background: #64c465;
+    border-bottom: #509d51 1px solid;
+    border-left: #509d51 1px solid;
+    border-right: #509d51 1px solid;
+  }
+
+  .yellow {
+    background: #f7ce5f;
+    border-bottom: #c5a13e 3px solid;
+    border-left: #c5a13e 1px solid;
+    border-right: #c5a13e 1px solid;
+  }
+
+  .yellow:active {
+    background: #f6c94d;
+    border-bottom: #c5a13e 1px solid;
+    border-left: #c5a13e 1px solid;
+    border-right: #c5a13e 1px solid;
+  }
+
+  td {
+    padding: 0.3rem 1.5rem;
+  }
+
+  pre {
+    width: 60%;
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  }
+
+  .code_block {
+    padding: 2em !important;
+    border-radius: 5px;
+  }
+</style>
+<div class="content">
+  <h1>ICA components</h1>
+  <div id="cf1c5808-2b15-43dd-b241-7fda2e7386a6" data-root-id="p2464" style="display: contents;"></div>
+</div>
+<div></div>
+<div class="carpet-plots">
+  <h1>Carpet plots</h1>
+  <div class="carpet-wrapper">
+    <div class="carpet-buttons"><button
+  class="blue"
+  type="button"
+  onClick="updateCarpetPlot('optcom_nogsr')"
+  style="display:none"
+>
+  Optimally combined with global signal
+</button>
+<button class="blue" type="button" onClick="updateCarpetPlot('optcom')">
+  Optimally combined 
+</button>
+<button class="yellow" type="button" onClick="updateCarpetPlot('denoised')">
+  Denoised 
+</button>
+<button
+  class="yellow"
+  type="button"
+  onClick="updateCarpetPlot('denoised_mir')"
+  style="display:none"
+>
+  Denoised after MIR
+</button>
+<button class="green" type="button" onClick="updateCarpetPlot('accepted')">
+  Accepted 
+</button>
+<button
+  class="green"
+  type="button"
+  onClick="updateCarpetPlot('accepted_mir')"
+  style="display:none"
+>
+  Accepted after MIR
+</button>
+<button class="red" type="button" onClick="updateCarpetPlot('rejected')">
+  Rejected
+</button></div>
+    <div class="carpet-plots-image">
+      <img
+        id="imgCarpetPlot"
+        src="./figures/carpet_optcom.svg"
+        style="width: 95%; max-width: 1200px; height: auto"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="carpet-plots">
+  <h1>Adaptive mask</h1>
+  <img
+    id="adaptiveMask"
+    src="./figures/adaptive_mask.svg"
+    style="width: 95%; max-width: 1200px; height: auto"
+  />
+</div>
+
+<div class="carpet-plots">
+  
+  <h2>T2*</h2>
+  <div class="carpet-plots-image">
+    <img
+      id="t2starBrainPlot"
+      src="./figures/t2star_brain.svg"
+      style="width: 95%; max-width: 1200px; height: auto"
+    />
+  </div>
+  <div class="carpet-plots-image">
+    <img
+      id="t2starHistogram"
+      src="./figures/t2star_histogram.svg"
+      style="width: 95%; max-width: 1200px; height: auto"
+    />
+  </div>
+   
+  <h2>S0</h2>
+  <div class="carpet-plots-image">
+    <img
+      id="s0BrainPlot"
+      src="./figures/s0_brain.svg"
+      style="width: 95%; max-width: 1200px; height: auto"
+    />
+  </div>
+  <div class="carpet-plots-image">
+    <img
+      id="s0Histogram"
+      src="./figures/s0_histogram.svg"
+      style="width: 95%; max-width: 1200px; height: auto"
+    />
+  </div>
+   
+  <h2>
+    T2* and S0 model fit (RMSE). (Scaled between 2nd and 98th percentiles)
+  </h2>
+  <div class="carpet-plots-image">
+    <img
+      id="rmseBrainPlot"
+      src="./figures/rmse_brain.svg"
+      style="width: 95%; max-width: 1200px; height: auto"
+    />
+  </div>
+  <div class="carpet-plots-image">
+    <img
+      id="rmseTimeseries"
+      src="./figures/rmse_timeseries.svg"
+      style="width: 95%; max-width: 1200px; height: auto"
+    />
+  </div>
+  
+</div>
+
+
+
+<div class="carpet-plots">
+  <div class="carpet-plots-image">
+  <h1>External Regressors</h1>
+  <img
+    id="externalRegressorCorrelations"
+    src="./figures/confound_correlations.svg"
+    style="width: 95%; max-width: 1200px; height: auto"
+  />
+  </div>
+</div>
+
+
+<div class="info">
+  <h1>Info</h1>
+  <div>
+  <p>
+    <span class="title">Tedana command used:</span>
+  <pre class="language-python">
+      <code class="code_block">
+        tedana_workflow(data=['five-echo-dataset/p06.SBJ01_S09_Task11_e1.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e2.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e3.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e4.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e5.sm.nii.gz'], tes=[15.4, 29.7, 44.0, 58.3, 72.6], out_dir=/Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed, mask=None, convention=bids, prefix=, dummy_scans=0, masktype=['dropout'], fittype=loglin, combmode=t2s, n_independent_echos=None, tree=demo_external_regressors_motion_task_models, external_regressors=five-echo-dataset/external_regressors.tsv, ica_method=fastica, n_robust_runs=30, tedpca=aic, fixed_seed=42, maxit=500, maxrestart=10, tedort=False, gscontrol=None, no_reports=False, png_cmap=coolwarm, verbose=False, low_mem=False, debug=False, quiet=False, overwrite=False, t2smap=None, mixing_file=five-echo-dataset/tedana_processed/desc-ICA_mixing.tsv)
+      </code>
+    </pre>
+  </p>
+  <table>
+    <tr>
+      <td class="title">System:</td>
+      <td>Darwin</td>
+    </tr>
+    <tr>
+      <td class="title">Node:</td>
+      <td>MH02276312MLI.local</td>
+    </tr>
+    <tr>
+      <td class="title">Release:</td>
+      <td>23.6.0</td>
+    </tr>
+    <tr>
+      <td class="title">System version:</td>
+      <td>Darwin Kernel Version 23.6.0: Thu Apr 24 20:29:18 PDT 2025; root:xnu-10063.141.1.705.2~1/RELEASE_ARM64_T6000</td>
+    </tr>
+    <tr>
+      <td class="title">Machine:</td>
+      <td>arm64</td>
+    </tr>
+    <tr>
+      <td class="title">Processor:</td>
+      <td>arm</td>
+    </tr>
+    <tr>
+      <td class="title">Python:</td>
+      <td>3.13.2 | packaged by Anaconda, Inc. | (main, Feb  6 2025, 12:55:35) [Clang 14.0.6 ]</td>
+    </tr>
+    <tr>
+      <td class="title">Tedana version:</td>
+      <td>25.0.1</td>
+    </tr>
+    <tr>
+      <td class="title">Other library versions:</td>
+      <td>{'bokeh': '3.6.2', 'mapca': '0.0.5', 'matplotlib': '3.10.0', 'nibabel': '5.3.2', 'nilearn': '0.11.1', 'numpy': '2.2.2', 'pandas': '2.2.3', 'robustica': '0.1.4', 'scikit-learn': '1.6.1', 'scipy': '1.15.1', 'threadpoolctl': '3.5.0', 'tqdm': '4.67.1'}</td>
+    </tr>
+  </table>
+</div>
+</div>
+<div class="about">
+  <h1>About tedana</h1>
+  This is based on the minimal criteria of the original MEICA decision tree (Kundu et al. 2013) without the more aggressive noise removal steps (DuPre et al. 2021). TE-dependence analysis was performed on input data using the tedana workflow (DuPre et al. 2021). An initial mask was generated from the first echo using nilearn's compute_epi_mask function. An adaptive mask was then generated using the dropout method(s), in which each voxel's value reflects the number of echoes with 'good' data. An adaptive mask was then generated using the dropout method(s), in which each voxel's value reflects the number of echoes with 'good' data. A two-stage masking procedure was applied, in which a liberal mask (including voxels with good data in at least the first echo) was used for optimal combination, T2*/S0 estimation, and denoising, while a more conservative mask (restricted to voxels with good data in at least the first three echoes) was used for the component classification procedure. A monoexponential model was fit to the data at each voxel using log-linear regression in order to estimate T2* and S0 maps. For each voxel, the value from the adaptive mask was used to determine which echoes would be used to estimate T2* and S0. Multi-echo data were then optimally combined using the T2* combination method (Posse et al. 1999). The following metrics were calculated: R2stat nuisance model, R2stat task model, countsigFS0, countsigFT2, dice_FS0, dice_FT2, kappa, normalized variance explained, pval nuisance CSF partial model, pval nuisance Motion partial model, pval nuisance model, pval task model, rho, signal-noise_t, variance explained. Kappa (kappa) and Rho (rho) were calculated as measures of TE-dependence and TE-independence, respectively. A t-test was performed between the distributions of T2*-model F-statistics associated with clusters (i.e., signal) and non-cluster voxels (i.e., noise) to generate a t-statistic (metric signal-noise_z) and p-value (metric signal-noise_p) measuring relative association of the component to signal over noise. {'External nuisance regressors that fit to components using a linear model were rejected.'} {'Task regressors that fit to components using a linear model and have some T2* weighting were accepted even if they would have been rejected base on other criteriea.'}
+
+ Next, component selection was performed to identify BOLD (TE-dependent) and non-BOLD (TE-independent) components using a decision tree.
+
+ This workflow used numpy (Van Der Walt et al. 2011), scipy (Virtanen et al. 2020), pandas (McKinney et al. 2010, pandas development team et al. 2020), scikit-learn (Pedregosa et al. 2011), nilearn, bokeh (Team et al. 2018), matplotlib (Hunter et al. 2007), and nibabel (Brett et al. 2019). This workflow also used the Dice similarity index (Dice et al. 1945, Sorensen et al. 1948).
+</div>
+<div class="content references">
+  <h1>References</h1>
+  <ul>
+    <li>Brett, M., Markiewicz, C.&nbsp;J., Hanke, M., Côté, M.-A., Cipollini, B., McCarthy, P., … freec84 (2019 , May).
+<em>nipy/nibabel: 2.4.1</em>.</li><li>Dice, L.&nbsp;R.
+(1945).
+Measures of the amount of ecologic association between species.
+<em>Ecology</em>, <em>26</em>(3), 297–302.
+URL: <a href="https://doi.org/10.2307/1932409">https://doi.org/10.2307/1932409</a>, <a href="https://doi.org/10.2307/1932409">doi:10.2307/1932409</a></li><li>DuPre, E., Salo, T., Ahmed, Z., Bandettini, P.&nbsp;A., Bottenhorn, K.&nbsp;L., Caballero-Gaudes, C., … others.
+(2021).
+Te-dependent analysis of multi-echo fmri with* tedana.
+<em>Journal of Open Source Software</em>, <em>6</em>(66), 3669.
+URL: <a href="https://doi.org/10.21105/joss.03669">https://doi.org/10.21105/joss.03669</a>, <a href="https://doi.org/10.21105/joss.03669">doi:10.21105/joss.03669</a></li><li>Hunter, J.&nbsp;D.
+(2007).
+Matplotlib: a 2d graphics environment.
+<em>Computing in Science &amp; Engineering</em>, <em>9</em>(3), 90–95.
+<a href="https://doi.org/10.1109/MCSE.2007.55">doi:10.1109/MCSE.2007.55</a></li><li>Kundu, P., Brenowitz, N.&nbsp;D., Voon, V., Worbe, Y., V<span class="bibtex-protected">é</span>rtes, P.&nbsp;E., Inati, S.&nbsp;J., … Bullmore, E.&nbsp;T.
+(2013).
+Integrated strategy for improving functional connectivity mapping using multiecho fmri.
+<em>Proceedings of the National Academy of Sciences</em>, <em>110</em>(40), 16187–16192.
+URL: <a href="https://doi.org/10.1073/pnas.1301725110">https://doi.org/10.1073/pnas.1301725110</a>, <a href="https://doi.org/10.1073/pnas.1301725110">doi:10.1073/pnas.1301725110</a></li><li>McKinney, W., &amp; others. (2010).
+Data structures for statistical computing in python.
+<em>Proceedings of the 9th Python in Science Conference</em> (pp.&nbsp;51–56).
+URL: <a href="https://doi.org/10.25080/Majora-92bf1922-00a">https://doi.org/10.25080/Majora-92bf1922-00a</a>, <a href="https://doi.org/10.25080/Majora-92bf1922-00a">doi:10.25080/Majora-92bf1922-00a</a></li><li>pandas&nbsp;development team, T. (2020 , February).
+<em>pandas-dev/pandas: Pandas</em>.</li><li>Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., … others.
+(2011).
+Scikit-learn: machine learning in python.
+<em>the Journal of machine Learning research</em>, <em>12</em>, 2825–2830.
+URL: <a href="http://jmlr.org/papers/v12/pedregosa11a.html">http://jmlr.org/papers/v12/pedregosa11a.html</a></li><li>Posse, S., Wiese, S., Gembris, D., Mathiak, K., Kessler, C., Grosse-Ruyken, M.-L., … Kiselev, V.&nbsp;G.
+(1999).
+Enhancement of bold-contrast sensitivity by single-shot multi-echo functional mr imaging.
+<em>Magnetic Resonance in Medicine: An Official Journal of the International Society for Magnetic Resonance in Medicine</em>, <em>42</em>(1), 87–97.
+URL: <a href="https://doi.org/10.1002/(SICI)1522-2594(199907)42:1<87::AID-MRM13>3.0.CO;2-O">https://doi.org/10.1002/(SICI)1522-2594(199907)42:1&lt;87::AID-MRM13&gt;3.0.CO;2-O</a>, <a href="https://doi.org/10.1002/(SICI)1522-2594(199907)42:1<87::AID-MRM13>3.0.CO;2-O">doi:10.1002/(SICI)1522-2594(199907)42:1&lt;87::AID-MRM13&gt;3.0.CO;2-O</a></li><li>Sorensen, T.&nbsp;A.
+(1948).
+A method of establishing groups of equal amplitude in plant sociology based on similarity of species content and its application to analyses of the vegetation on danish commons.
+<em>Biol. Skar.</em>, <em>5</em>, 1–34.</li><li>Team, B.&nbsp;D. (2018).
+<em>Bokeh: Python library for interactive visualization</em>.
+URL: <a href="https://bokeh.pydata.org/en/latest/">https://bokeh.pydata.org/en/latest/</a></li><li>Van Der&nbsp;Walt, S., Colbert, S.&nbsp;C., &amp; Varoquaux, G.
+(2011).
+The numpy array: a structure for efficient numerical computation.
+<em>Computing in science &amp; engineering</em>, <em>13</em>(2), 22–30.
+URL: <a href="https://doi.org/10.1109/MCSE.2011.37">https://doi.org/10.1109/MCSE.2011.37</a>, <a href="https://doi.org/10.1109/MCSE.2011.37">doi:10.1109/MCSE.2011.37</a></li><li>Virtanen, P., Gommers, R., Oliphant, T.&nbsp;E., Haberland, M., Reddy, T., Cournapeau, D., … others.
+(2020).
+Scipy 1.0: fundamental algorithms for scientific computing in python.
+<em>Nature methods</em>, <em>17</em>(3), 261–272.
+URL: <a href="https://doi.org/10.1038/s41592-019-0686-2">https://doi.org/10.1038/s41592-019-0686-2</a>, <a href="https://doi.org/10.1038/s41592-019-0686-2">doi:10.1038/s41592-019-0686-2</a></li>
+  </ul>
+</div>
+
+<script type="text/javascript">
+  function updateCarpetPlot(name) {
+    // Create variable to hold the image source
+    let carpetPlot = "./figures/";
+
+    if (name == "optcom") {
+      carpetPlot += "carpet_optcom.svg";
+    } else if (name == "denoised") {
+      carpetPlot += "carpet_denoised.svg";
+    } else if (name == "accepted") {
+      carpetPlot += "carpet_accepted.svg";
+    } else if (name == "rejected") {
+      carpetPlot += "carpet_rejected.svg";
+    } else if (name == "denoised_mir") {
+      carpetPlot += "carpet_denoised_mir.svg";
+    } else if (name == "accepted_mir") {
+      carpetPlot += "carpet_accepted_mir.svg";
+    } else if (name == "optcom_nogsr") {
+      carpetPlot += "carpet_optcom_nogsr.svg";
+    }
+
+    // Update the image source
+    document.getElementById("imgCarpetPlot").src = carpetPlot;
+  }
+</script>
+
+    <script type="text/javascript">
+        (function() {
+  const fn = function() {
+    Bokeh.safely(function() {
+      (function(root) {
+        function embed_document(root) {
+        const docs_json = '{"2616bf60-e242-4af6-9d3e-0d9a12dd1483":{"version":"3.6.2","title":"Bokeh Application","roots":[{"type":"object","name":"GridPlot","id":"p2464","attributes":{"rows":null,"cols":null,"toolbar":{"type":"object","name":"Toolbar","id":"p2463","attributes":{"logo":null,"tools":[{"type":"object","name":"ToolProxy","id":"p2456","attributes":{"tools":[{"type":"object","name":"TapTool","id":"p2258","attributes":{"renderers":"auto","mode":"replace"}},{"type":"object","name":"TapTool","id":"p2404","attributes":{"renderers":"auto","mode":"replace"}},{"type":"object","name":"TapTool","id":"p2354","attributes":{"renderers":"auto","mode":"replace"}},{"type":"object","name":"TapTool","id":"p2304","attributes":{"renderers":"auto","mode":"replace"}}]}},{"type":"object","name":"ToolProxy","id":"p2457","attributes":{"tools":[{"type":"object","name":"HoverTool","id":"p2257","attributes":{"renderers":"auto","tooltips":[["Component ID","@component"],["Kappa","@kappa{0.00}"],["Rho","@rho{0.00}"],["Var. Expl.","@varexp{0.00}%"],["Var. Expl. by Rej.","@varexprej{0.00}%"],["Tags","@classtag"]]}},{"type":"object","name":"HoverTool","id":"p2403","attributes":{"renderers":"auto","tooltips":[["Component ID","@component"],["Kappa","@kappa{0.00}"],["Rho","@rho{0.00}"],["Var. Expl.","@varexp{0.00}%"],["Var. Expl. by Rej.","@varexprej{0.00}%"],["Tags","@classtag"]]}},{"type":"object","name":"HoverTool","id":"p2353","attributes":{"renderers":"auto","tooltips":[["Component ID","@component"],["Kappa","@kappa{0.00}"],["Rho","@rho{0.00}"],["Var. Expl.","@varexp{0.00}%"],["Var. Expl. by Rej.","@varexprej{0.00}%"],["Tags","@classtag"]]}},{"type":"object","name":"HoverTool","id":"p2303","attributes":{"renderers":"auto","tooltips":[["Component ID","@component"],["Kappa","@kappa{0.00}"],["Rho","@rho{0.00}"],["Var. Expl.","@varexp{0.00}%"],["Var. Expl. by Rej.","@varexprej{0.00}%"],["Tags","@classtag"]]}}]}},{"type":"object","name":"ToolProxy","id":"p2458","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"p2281","attributes":{"renderers":"auto"}},{"type":"object","name":"WheelZoomTool","id":"p2377","attributes":{"renderers":"auto"}},{"type":"object","name":"WheelZoomTool","id":"p2327","attributes":{"renderers":"auto"}}]}},{"type":"object","name":"ToolProxy","id":"p2459","attributes":{"tools":[{"type":"object","name":"ResetTool","id":"p2282"},{"type":"object","name":"ResetTool","id":"p2378"},{"type":"object","name":"ResetTool","id":"p2328"}]}},{"type":"object","name":"ToolProxy","id":"p2460","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p2283"},{"type":"object","name":"PanTool","id":"p2379"},{"type":"object","name":"PanTool","id":"p2329"}]}},{"type":"object","name":"ToolProxy","id":"p2461","attributes":{"tools":[{"type":"object","name":"CrosshairTool","id":"p2284"},{"type":"object","name":"CrosshairTool","id":"p2380"},{"type":"object","name":"CrosshairTool","id":"p2330"}]}},{"type":"object","name":"SaveTool","id":"p2462"}]}},"toolbar_location":"left","children":[[{"type":"object","name":"Row","id":"p2455","attributes":{"children":[{"type":"object","name":"Column","id":"p2453","attributes":{"children":[{"type":"object","name":"Row","id":"p2451","attributes":{"children":[{"type":"object","name":"Figure","id":"p2259","attributes":{"js_event_callbacks":{"type":"map","entries":[["tap",[{"type":"object","name":"CustomJS","id":"p2447","attributes":{"args":{"type":"map","entries":[["source_comp_table",{"type":"object","name":"ColumnDataSource","id":"p2254","attributes":{"selected":{"type":"object","name":"Selection","id":"p2255","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p2256"},"data":{"type":"map","entries":[["kappa",{"type":"ndarray","array":{"type":"bytes","data":"A88JrqgAUkDBNblUjF9VQN7pHDnd2llA3MEb6jIcVEB2LFXntuNcQNQtS4T+e1ZAuTUjmKGbWUCAodQGkCJfQI+dYnO9a2BAW1ZvZWdBY0DGhGKvBMJaQHTy2vSD1TJATwa7+AVmN0B/L/AXi1JEQFxSBDZtaDVAdQn8MfyHOkBPBWu4fgA1QA9ar1fTZVBA0PPTVh83SEDyHSML/2lAQKIZqWnAWzVAHsB/q7aVUEAXyMXl1kBMQPYJLWWgqU9ApO8Rqv5VQ0BMAuAs8l9QQPjb0QUIZVFA/dhwMyBTREA+uAvk6Oo2QGf5wYESfTdAXIAg/wTBO0BiQKuV4J45QMX2z09JmUxALYw44D+vNkCiLpq96d8/QHvZNxJwrGJALReBTV5VQ0DE+xoFb81mQBECrrUu6ENA"},"shape":[39],"dtype":"float64","order":"little"}],["rho",{"type":"ndarray","array":{"type":"bytes","data":"GLKbyidwLECHCg/AwH8uQPslnWY+CjFAvBBjfT1MMEBpAR1+xU8yQOIh8l7AKzBAICeJGGdbMEB2VWskZLczQKP0wcc+NTFAL9SQ2yVgMUA2Oe7G3dEyQO+K5dh23DVA003DL5gFL0DD/DWqzzAuQENBhS+2aC1AGJftRsFNKkCcguITnlkqQB12qDMfQy5Av99XBtmtLkBNh8kCVjkrQPhxBKbmYzVAzMv3lxHxLkAySAlD+vIxQLvkho/oKTBAKi04vwnbKUCIW826wU4qQFwByvhSlzJAtHLW4lzuQEBHGGcPcZkwQMhwR7mBvTxAEUbDp3zHLEDnfyulqfQ+QNHqQUl+xj5AgtlhL1qsOUCbMBmtdBw6QD1gRt0xYzNAMoMw8j4ONECT8CYubLQ8QJ8kXRIZSDJA"},"shape":[39],"dtype":"float64","order":"little"}],["varexp",{"type":"ndarray","array":{"type":"bytes","data":"wOFYpMwozz/Sws0iJETeP5W2voAUNeE/rgL3iPD84j/6JtK8XV7jPz1WW/FUXuU/uASuPPqj5T9fMeHAsTbnPz7+qAB4N+8/1Zt+I5Oc8j9RD9N509D6PybZ6o4yHcQ/pUVu8rE+xT+ESVIRIF7FPyF6nF8pPcc/7Fi7m+nryT8bLOjohHTLP684RW/UyNA/XYqDtG3n0j/B2c7KTuzSPw/y36jh7NM/t59RghCY2D8muEreRsTZP37JJsS/y9k/gaEkpI3w2T8AZ83nb1HaPyXpML0futo/bN5wnIqk5z9fzC8AQlzoP049FQGE7Og/6BF5X3L+6D/YIXLILwLqP1w6QYrnS+8/GgXs3WVe8T8vcz5IPxzzP2rLB5/tNwBAT5oBr9axGEBffrYggeoiQDU9YtIWGU9A"},"shape":[39],"dtype":"float64","order":"little"}],["varexprej",{"type":"ndarray","array":{"type":"bytes","data":"EFFoR9qlO0D0WKgN8No+QPfDXvwZgTdACAfv7+4kNkCSNSISi/c0QAnvEr2/Iz5Aeesl7QbpQUBpcCMOgbZEQAm7KM5kZkNAqTE0t7unPUD//y7CGpk5QAAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/AAAAAAAA+H8AAAAAAAD4fwAAAAAAAPh/"},"shape":[39],"dtype":"float64","order":"little"}],["kappa_rank",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAKkAAAAAAAAAmQAAAAAAAACBAAAAAAAAAKEAAAAAAAAAYQAAAAAAAACRAAAAAAAAAIkAAAAAAAAAUQAAAAAAAABBAAAAAAAAAAEAAAAAAAAAcQAAAAAAAgENAAAAAAACAQEAAAAAAAAA3QAAAAAAAAEJAAAAAAAAAPkAAAAAAAABDQAAAAAAAADBAAAAAAAAANUAAAAAAAAA7QAAAAAAAgEJAAAAAAAAALkAAAAAAAAA0QAAAAAAAADJAAAAAAAAAOUAAAAAAAAAxQAAAAAAAACxAAAAAAAAANkAAAAAAAABBQAAAAAAAAEBAAAAAAAAAPUAAAAAAAAA/QAAAAAAAADNAAAAAAACAQUAAAAAAAAA8QAAAAAAAAAhAAAAAAAAAOkAAAAAAAADwPwAAAAAAADhA"},"shape":[39],"dtype":"float64","order":"little"}],["rho_rank",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAAAQUAAAAAAAAA9QAAAAAAAADRAAAAAAAAAN0AAAAAAAAAuQAAAAAAAADhAAAAAAAAANkAAAAAAAAAmQAAAAAAAADNAAAAAAAAAMkAAAAAAAAAqQAAAAAAAACBAAAAAAAAAOkAAAAAAAAA/QAAAAAAAAEBAAAAAAAAAQ0AAAAAAAABCQAAAAAAAAD5AAAAAAAAAPEAAAAAAAIBBQAAAAAAAACJAAAAAAAAAO0AAAAAAAAAxQAAAAAAAADlAAAAAAACAQ0AAAAAAAIBCQAAAAAAAACxAAAAAAAAA8D8AAAAAAAA1QAAAAAAAABBAAAAAAACAQEAAAAAAAAAAQAAAAAAAAAhAAAAAAAAAHEAAAAAAAAAYQAAAAAAAAChAAAAAAAAAJEAAAAAAAAAUQAAAAAAAADBA"},"shape":[39],"dtype":"float64","order":"little"}],["varexp_rank",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAACAQEAAAAAAAAA2QAAAAAAAADVAAAAAAAAANEAAAAAAAAAzQAAAAAAAADJAAAAAAAAAMUAAAAAAAAAwQAAAAAAAACRAAAAAAAAAHEAAAAAAAAAUQAAAAAAAgENAAAAAAAAAQ0AAAAAAAIBCQAAAAAAAAEJAAAAAAACAQUAAAAAAAABBQAAAAAAAAEBAAAAAAAAAP0AAAAAAAAA+QAAAAAAAAD1AAAAAAAAAPEAAAAAAAAA7QAAAAAAAADpAAAAAAAAAOUAAAAAAAAA4QAAAAAAAADdAAAAAAAAALkAAAAAAAAAsQAAAAAAAACpAAAAAAAAAKEAAAAAAAAAmQAAAAAAAACJAAAAAAAAAIEAAAAAAAAAYQAAAAAAAABBAAAAAAAAACEAAAAAAAAAAQAAAAAAAAPA/"},"shape":[39],"dtype":"float64","order":"little"}],["component",["9","21","32","34","18","28","33","1","8","2","35","16","26","13","37","19","38","22","23","25","29","12","0","20","36","4","31","15","11","10","5","17","7","3","24","30","6","14","27"]],["color",{"type":"ndarray","array":["#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#2ecc71","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c","#e74c3c"],"shape":[39],"dtype":"object","order":"little"}],["size",{"type":"ndarray","array":{"type":"bytes","data":"X8Ht+MkWEEDs5hVXZFMQQBiuI7SCZBBAxpnB3DRzEEB5xsbpWHYQQJ+NFxzahhBA60RP4xiJEEAKNVh3FJYQQKCREMcg2BBALszEFrMJEUAlFNpgHZERQAAAAAAAABBAXYBMTFUCEEDv0DwllgIQQOOFDoFyBhBAL5WYbPsLEEB3fIp1JQ8QQK+pRbHCGxBA+atIsoEkEEDA0ZLUlSQQQJinVpG4KBBAlLLUbPw7EEAoiyU800AQQDCFnRHyQBBAe7538IlBEEAzHKi5GUMQQOq+tLXJRBBAfAG2BZ+ZEEBPyKE2i58QQM2r6sExpBBA9mu6vcWkEEDU5ZNYJa0QQOA+X27J2BBA5k7cVC/1EEBL+xls7hERQOGR3bLl7RFAieg/m+s0FkAxQuidSpgZQAAAAAAAADRA"},"shape":[39],"dtype":"float64","order":"little"}],["classif",{"type":"ndarray","array":["accepted","accepted","accepted","accepted","accepted","accepted","accepted","accepted","accepted","accepted","accepted","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected","rejected"],"shape":[39],"dtype":"object","order":"little"}],["classtag",{"type":"ndarray","array":["Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Likely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD","Unlikely BOLD,External regressors","Unlikely BOLD,External regressors","Unlikely BOLD","Unlikely BOLD,External regressors","Unlikely BOLD,External regressors","Unlikely BOLD,External regressors","Unlikely BOLD","Unlikely BOLD,External regressors","Unlikely BOLD,Likely BOLD,External regressors","Unlikely BOLD,External regressors","Unlikely BOLD,Likely BOLD,External regressors","Unlikely BOLD,External regressors"],"shape":[39],"dtype":"object","order":"little"}],["angle",{"type":"ndarray","array":{"type":"bytes","data":"duJ8RCdTjz8DZgT0R22ePzuzaTJ4TKE/ybaB3b8Woz8xFzJ/sXijPz7SCZpge6U/gHkwkGTBpT/L9Ax7P1anP/u2WZHmYa8/7Fape9+1sj8NyhehRvW6P/B/ebWJOIQ/NYpjmpJbhT9vpCFyK3uFPxyXN+S/XIc/A6g6myUPij+OcPuQ1pmLPwEQwPyk35A/1TXJyx8Bkz8vT+2DBwaTP0nIwSL3B5Q/3+vQj365mD+fx6D9TOeZP8P7oQvQ7pk/tX5/8s8Tmj9AtiLnNXWaP00qvQh03po/NoV0pq3Epz+/B5HCXn2oP427UNlkDqk/BrNBl2sgqT8xN70OiiWqP8qcBOJxdq8/wNcVuQF2sT9SHP4qOTazP2Xwojb5TcA/iJg0xWfT2D8GHk5mNwTjP+u9yBdcQw9A"},"shape":[39],"dtype":"float64","order":"little"}]]}}}],["div",{"type":"object","name":"Div","id":"p2446","attributes":{"width":500,"height":750,"height_policy":"fixed"}}],["outdir","/Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed"],["prefix",""]]},"code":"\\n    // Accessing the selected component ID\\n    var data          = source_comp_table.data;\\n    var selected_idx = source_comp_table.selected.indices;\\n    console.log(&#x27;Selected idx is &#x27; + selected_idx)\\n    if(selected_idx &gt;= 0) {\\n        // A component has been selected\\n        // -----------------------------\\n        var components = data[&#x27;component&#x27;]\\n        var selected = components[selected_idx]\\n        var selected_padded = String(selected).padStart(3,0)\\n        var selected_padded_forIMG = selected_padded\\n        var selected_padded_C = &#x27;ica_&#x27; + selected_padded\\n\\n        // Find color for selected component\\n        var colors = data[&#x27;color&#x27;]\\n        var this_component_color = colors[selected_idx]\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;span&gt;&lt;img src=&#x27;./figures/\\"+prefix+\\"comp_\\"+selected_padded_forIMG+\\".png&#x27;\\" +\\n            \\" alt=&#x27;Component Map&#x27;&gt;&lt;span&gt;\\\\n\\";\\n        console.log(&#x27;Linea: &#x27; + line)\\n        var text = div.text.concat(line);\\n        var lines = text.split(\\"\\\\n\\")\\n            if (lines.length &gt; 35)\\n                lines.shift();\\n        div.text = lines.join(\\"\\\\n\\");\\n\\n    } else {\\n        // No component has been selected\\n        // ------------------------------\\n        // Set Component color to Black\\n        var this_component_color = &#x27;#000000&#x27;\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;p&gt;Please select an individual component to view it in more detail&lt;/p&gt;\\\\n\\"\\n        var text = div.text.concat(line);\\n\\n    }\\n    "}}]]]},"width":400,"height":400,"x_range":{"type":"object","name":"DataRange1d","id":"p2260"},"y_range":{"type":"object","name":"DataRange1d","id":"p2261"},"x_scale":{"type":"object","name":"LinearScale","id":"p2269"},"y_scale":{"type":"object","name":"LinearScale","id":"p2270"},"title":{"type":"object","name":"Title","id":"p2262","attributes":{"text":"Kappa / Rho Plot"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p2293","attributes":{"data_source":{"id":"p2254"},"view":{"type":"object","name":"CDSView","id":"p2294","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2295"}}},"glyph":{"type":"object","name":"Scatter","id":"p2290","attributes":{"x":{"type":"field","field":"kappa"},"y":{"type":"field","field":"rho"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.5},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.5},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.5}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p2291","attributes":{"x":{"type":"field","field":"kappa"},"y":{"type":"field","field":"rho"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p2292","attributes":{"x":{"type":"field","field":"kappa"},"y":{"type":"field","field":"rho"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p2268","attributes":{"logo":null,"tools":[{"id":"p2258"},{"id":"p2257"},{"id":"p2281"},{"id":"p2282"},{"id":"p2283"},{"id":"p2284"},{"type":"object","name":"SaveTool","id":"p2285"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p2276","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2277","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2278"},"axis_label":"Rho","major_label_policy":{"type":"object","name":"AllLabels","id":"p2279"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p2271","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2272","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2273"},"axis_label":"Kappa","major_label_policy":{"type":"object","name":"AllLabels","id":"p2274"}}}],"center":[{"type":"object","name":"Grid","id":"p2275","attributes":{"axis":{"id":"p2271"}}},{"type":"object","name":"Grid","id":"p2280","attributes":{"dimension":1,"axis":{"id":"p2276"}}},{"type":"object","name":"Slope","id":"p2286","attributes":{"gradient":1,"y_intercept":0,"line_color":"#D3D3D3"}},{"type":"object","name":"Legend","id":"p2296","attributes":{"location":"bottom_right","orientation":"horizontal","background_fill_alpha":0.5,"items":[{"type":"object","name":"LegendItem","id":"p2297","attributes":{"label":{"type":"value","value":"accepted"},"renderers":[{"id":"p2293"}],"index":0}},{"type":"object","name":"LegendItem","id":"p2298","attributes":{"label":{"type":"value","value":"rejected"},"renderers":[{"id":"p2293"}],"index":11}}]}},{"type":"object","name":"Span","id":"p2299","attributes":{"name":"rho elbow","location":20.055647980541103,"line_color":"#000033","line_alpha":0.75,"line_dash":[6]}},{"type":"object","name":"Label","id":"p2300","attributes":{"text":"rho elbow","text_color":"#000033","text_alpha":0.75,"text_font_size":"10px","x":300,"y":20.456760940151927,"x_units":"screen"}},{"type":"object","name":"Span","id":"p2301","attributes":{"name":"kappa elbow","location":72.01029540021777,"dimension":"height","line_color":"#000033","line_alpha":0.75,"line_dash":[6]}},{"type":"object","name":"Label","id":"p2302","attributes":{"text":"kappa elbow","text_color":"#000033","text_alpha":0.75,"text_font_size":"10px","x":73.45050130822213,"y":300,"y_units":"screen"}}]}},{"type":"object","name":"Figure","id":"p2405","attributes":{"js_event_callbacks":{"type":"map","entries":[["tap",[{"type":"object","name":"CustomJS","id":"p2450","attributes":{"args":{"type":"map","entries":[["source_comp_table",{"id":"p2254"}],["div",{"id":"p2446"}],["outdir","/Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed"],["prefix",""]]},"code":"\\n    // Accessing the selected component ID\\n    var data          = source_comp_table.data;\\n    var selected_idx = source_comp_table.selected.indices;\\n    console.log(&#x27;Selected idx is &#x27; + selected_idx)\\n    if(selected_idx &gt;= 0) {\\n        // A component has been selected\\n        // -----------------------------\\n        var components = data[&#x27;component&#x27;]\\n        var selected = components[selected_idx]\\n        var selected_padded = String(selected).padStart(3,0)\\n        var selected_padded_forIMG = selected_padded\\n        var selected_padded_C = &#x27;ica_&#x27; + selected_padded\\n\\n        // Find color for selected component\\n        var colors = data[&#x27;color&#x27;]\\n        var this_component_color = colors[selected_idx]\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;span&gt;&lt;img src=&#x27;./figures/\\"+prefix+\\"comp_\\"+selected_padded_forIMG+\\".png&#x27;\\" +\\n            \\" alt=&#x27;Component Map&#x27;&gt;&lt;span&gt;\\\\n\\";\\n        console.log(&#x27;Linea: &#x27; + line)\\n        var text = div.text.concat(line);\\n        var lines = text.split(\\"\\\\n\\")\\n            if (lines.length &gt; 35)\\n                lines.shift();\\n        div.text = lines.join(\\"\\\\n\\");\\n\\n    } else {\\n        // No component has been selected\\n        // ------------------------------\\n        // Set Component color to Black\\n        var this_component_color = &#x27;#000000&#x27;\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;p&gt;Please select an individual component to view it in more detail&lt;/p&gt;\\\\n\\"\\n        var text = div.text.concat(line);\\n\\n    }\\n    "}}]]]},"width":400,"height":400,"x_range":{"type":"object","name":"DataRange1d","id":"p2406"},"y_range":{"type":"object","name":"DataRange1d","id":"p2407"},"x_scale":{"type":"object","name":"LinearScale","id":"p2415"},"y_scale":{"type":"object","name":"LinearScale","id":"p2416"},"title":{"type":"object","name":"Title","id":"p2408","attributes":{"text":"Variance Explained View"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p2436","attributes":{"data_source":{"id":"p2254"},"view":{"type":"object","name":"CDSView","id":"p2437","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2438"}}},"glyph":{"type":"object","name":"Wedge","id":"p2433","attributes":{"x":{"type":"value","value":0},"y":{"type":"value","value":1},"radius":{"type":"value","value":0.9},"start_angle":{"type":"expr","expr":{"type":"object","name":"CumSum","id":"p2428","attributes":{"field":"angle","include_zero":true}}},"end_angle":{"type":"expr","expr":{"type":"object","name":"CumSum","id":"p2429","attributes":{"field":"angle"}}},"line_color":{"type":"value","value":"white"},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Wedge","id":"p2434","attributes":{"x":{"type":"value","value":0},"y":{"type":"value","value":1},"radius":{"type":"value","value":0.9},"start_angle":{"type":"expr","expr":{"id":"p2428"}},"end_angle":{"type":"expr","expr":{"id":"p2429"}},"line_color":{"type":"value","value":"white"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.1},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Wedge","id":"p2435","attributes":{"x":{"type":"value","value":0},"y":{"type":"value","value":1},"radius":{"type":"value","value":0.9},"start_angle":{"type":"expr","expr":{"id":"p2428"}},"end_angle":{"type":"expr","expr":{"id":"p2429"}},"line_color":{"type":"value","value":"white"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.2},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p2443","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p2440","attributes":{"selected":{"type":"object","name":"Selection","id":"p2441","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p2442"},"data":{"type":"map"}}},"view":{"type":"object","name":"CDSView","id":"p2444","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2445"}}},"glyph":{"type":"object","name":"Scatter","id":"p2439","attributes":{"x":{"type":"value","value":0},"y":{"type":"value","value":1},"size":{"type":"value","value":150},"line_color":{"type":"value","value":"white"},"fill_color":{"type":"value","value":"white"}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p2414","attributes":{"logo":null,"tools":[{"id":"p2403"},{"id":"p2404"},{"type":"object","name":"SaveTool","id":"p2427"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p2422","attributes":{"visible":false,"ticker":{"type":"object","name":"BasicTicker","id":"p2423","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2424"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p2425"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p2417","attributes":{"visible":false,"ticker":{"type":"object","name":"BasicTicker","id":"p2418","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2419"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p2420"}}}],"center":[{"type":"object","name":"Grid","id":"p2421","attributes":{"visible":false,"axis":{"id":"p2417"}}},{"type":"object","name":"Grid","id":"p2426","attributes":{"visible":false,"dimension":1,"axis":{"id":"p2422"}}}]}}]}},{"type":"object","name":"Row","id":"p2452","attributes":{"children":[{"type":"object","name":"Figure","id":"p2355","attributes":{"js_event_callbacks":{"type":"map","entries":[["tap",[{"type":"object","name":"CustomJS","id":"p2449","attributes":{"args":{"type":"map","entries":[["source_comp_table",{"id":"p2254"}],["div",{"id":"p2446"}],["outdir","/Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed"],["prefix",""]]},"code":"\\n    // Accessing the selected component ID\\n    var data          = source_comp_table.data;\\n    var selected_idx = source_comp_table.selected.indices;\\n    console.log(&#x27;Selected idx is &#x27; + selected_idx)\\n    if(selected_idx &gt;= 0) {\\n        // A component has been selected\\n        // -----------------------------\\n        var components = data[&#x27;component&#x27;]\\n        var selected = components[selected_idx]\\n        var selected_padded = String(selected).padStart(3,0)\\n        var selected_padded_forIMG = selected_padded\\n        var selected_padded_C = &#x27;ica_&#x27; + selected_padded\\n\\n        // Find color for selected component\\n        var colors = data[&#x27;color&#x27;]\\n        var this_component_color = colors[selected_idx]\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;span&gt;&lt;img src=&#x27;./figures/\\"+prefix+\\"comp_\\"+selected_padded_forIMG+\\".png&#x27;\\" +\\n            \\" alt=&#x27;Component Map&#x27;&gt;&lt;span&gt;\\\\n\\";\\n        console.log(&#x27;Linea: &#x27; + line)\\n        var text = div.text.concat(line);\\n        var lines = text.split(\\"\\\\n\\")\\n            if (lines.length &gt; 35)\\n                lines.shift();\\n        div.text = lines.join(\\"\\\\n\\");\\n\\n    } else {\\n        // No component has been selected\\n        // ------------------------------\\n        // Set Component color to Black\\n        var this_component_color = &#x27;#000000&#x27;\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;p&gt;Please select an individual component to view it in more detail&lt;/p&gt;\\\\n\\"\\n        var text = div.text.concat(line);\\n\\n    }\\n    "}}]]]},"width":400,"height":400,"x_range":{"type":"object","name":"Range1d","id":"p2400","attributes":{"start":-1,"end":40}},"y_range":{"type":"object","name":"DataRange1d","id":"p2357"},"x_scale":{"type":"object","name":"LinearScale","id":"p2365"},"y_scale":{"type":"object","name":"LinearScale","id":"p2366"},"title":{"type":"object","name":"Title","id":"p2358","attributes":{"text":"Rho Rank"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p2388","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p2382","attributes":{"selected":{"type":"object","name":"Selection","id":"p2383","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p2384"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AQAAAAIAAAADAAAABAAAAAUAAAAGAAAABwAAAAgAAAAJAAAACgAAAAsAAAAMAAAADQAAAA4AAAAPAAAAEAAAABEAAAASAAAAEwAAABQAAAAVAAAAFgAAABcAAAAYAAAAGQAAABoAAAAbAAAAHAAAAB0AAAAeAAAAHwAAACAAAAAhAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAA"},"shape":[39],"dtype":"int32","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"tHLW4lzuQEDnfyulqfQ+QNHqQUl+xj5AyHBHuYG9PECT8CYubLQ8QJswGa10HDpAgtlhL1qsOUDviuXYdtw1QPhxBKbmYzVAMoMw8j4ONEB2VWskZLczQD1gRt0xYzNANjnuxt3RMkBcAcr4UpcyQGkBHX7FTzJAnyRdEhlIMkAySAlD+vIxQC/UkNslYDFAo/TBxz41MUD7JZ1mPgoxQEcYZw9xmTBAICeJGGdbMEC8EGN9PUwwQOIh8l7AKzBAu+SGj+gpMEDTTcMvmAUvQMzL95cR8S5Av99XBtmtLkCHCg/AwH8uQB12qDMfQy5Aw/w1qs8wLkBDQYUvtmgtQBFGw6d8xyxAGLKbyidwLEBNh8kCVjkrQJyC4hOeWSpAiFvNusFOKkAYl+1GwU0qQCotOL8J2ylA"},"shape":[39],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p2389","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2390"}}},"glyph":{"type":"object","name":"Line","id":"p2385","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"}}},"nonselection_glyph":{"type":"object","name":"Line","id":"p2386","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p2387","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p2397","attributes":{"data_source":{"id":"p2254"},"view":{"type":"object","name":"CDSView","id":"p2398","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2399"}}},"glyph":{"type":"object","name":"Scatter","id":"p2394","attributes":{"x":{"type":"field","field":"rho_rank"},"y":{"type":"field","field":"rho"},"size":{"type":"value","value":5},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p2395","attributes":{"x":{"type":"field","field":"rho_rank"},"y":{"type":"field","field":"rho"},"size":{"type":"value","value":5},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p2396","attributes":{"x":{"type":"field","field":"rho_rank"},"y":{"type":"field","field":"rho"},"size":{"type":"value","value":5},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p2364","attributes":{"logo":null,"tools":[{"id":"p2354"},{"id":"p2353"},{"id":"p2377"},{"id":"p2378"},{"id":"p2379"},{"id":"p2380"},{"type":"object","name":"SaveTool","id":"p2381"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p2372","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2373","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2374"},"axis_label":"Rho","major_label_policy":{"type":"object","name":"AllLabels","id":"p2375"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p2367","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2368","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2369"},"axis_label":"Components sorted by Rho","major_label_policy":{"type":"object","name":"AllLabels","id":"p2370"}}}],"center":[{"type":"object","name":"Grid","id":"p2371","attributes":{"axis":{"id":"p2367"}}},{"type":"object","name":"Grid","id":"p2376","attributes":{"dimension":1,"axis":{"id":"p2372"}}},{"type":"object","name":"Span","id":"p2401","attributes":{"name":"elbow","location":20.055647980541103,"line_color":"#000033","line_alpha":0.75,"line_dash":[6]}},{"type":"object","name":"Label","id":"p2402","attributes":{"text":"elbow","text_color":"#000033","text_alpha":0.75,"text_font_size":"10px","x":20,"y":20.456760940151927,"x_units":"screen"}}]}},{"type":"object","name":"Figure","id":"p2305","attributes":{"js_event_callbacks":{"type":"map","entries":[["tap",[{"type":"object","name":"CustomJS","id":"p2448","attributes":{"args":{"type":"map","entries":[["source_comp_table",{"id":"p2254"}],["div",{"id":"p2446"}],["outdir","/Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed"],["prefix",""]]},"code":"\\n    // Accessing the selected component ID\\n    var data          = source_comp_table.data;\\n    var selected_idx = source_comp_table.selected.indices;\\n    console.log(&#x27;Selected idx is &#x27; + selected_idx)\\n    if(selected_idx &gt;= 0) {\\n        // A component has been selected\\n        // -----------------------------\\n        var components = data[&#x27;component&#x27;]\\n        var selected = components[selected_idx]\\n        var selected_padded = String(selected).padStart(3,0)\\n        var selected_padded_forIMG = selected_padded\\n        var selected_padded_C = &#x27;ica_&#x27; + selected_padded\\n\\n        // Find color for selected component\\n        var colors = data[&#x27;color&#x27;]\\n        var this_component_color = colors[selected_idx]\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;span&gt;&lt;img src=&#x27;./figures/\\"+prefix+\\"comp_\\"+selected_padded_forIMG+\\".png&#x27;\\" +\\n            \\" alt=&#x27;Component Map&#x27;&gt;&lt;span&gt;\\\\n\\";\\n        console.log(&#x27;Linea: &#x27; + line)\\n        var text = div.text.concat(line);\\n        var lines = text.split(\\"\\\\n\\")\\n            if (lines.length &gt; 35)\\n                lines.shift();\\n        div.text = lines.join(\\"\\\\n\\");\\n\\n    } else {\\n        // No component has been selected\\n        // ------------------------------\\n        // Set Component color to Black\\n        var this_component_color = &#x27;#000000&#x27;\\n\\n        // Image Below Plots\\n        div.text = \\"\\"\\n        var line = \\"&lt;p&gt;Please select an individual component to view it in more detail&lt;/p&gt;\\\\n\\"\\n        var text = div.text.concat(line);\\n\\n    }\\n    "}}]]]},"width":400,"height":400,"x_range":{"type":"object","name":"Range1d","id":"p2350","attributes":{"start":-1,"end":40}},"y_range":{"type":"object","name":"DataRange1d","id":"p2307"},"x_scale":{"type":"object","name":"LinearScale","id":"p2315"},"y_scale":{"type":"object","name":"LinearScale","id":"p2316"},"title":{"type":"object","name":"Title","id":"p2308","attributes":{"text":"Kappa Rank"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p2338","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p2332","attributes":{"selected":{"type":"object","name":"Selection","id":"p2333","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p2334"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"AQAAAAIAAAADAAAABAAAAAUAAAAGAAAABwAAAAgAAAAJAAAACgAAAAsAAAAMAAAADQAAAA4AAAAPAAAAEAAAABEAAAASAAAAEwAAABQAAAAVAAAAFgAAABcAAAAYAAAAGQAAABoAAAAbAAAAHAAAAB0AAAAeAAAAHwAAACAAAAAhAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAA"},"shape":[39],"dtype":"int32","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"xPsaBW/NZkBbVm9lZ0FjQHvZNxJwrGJAj51ic71rYECAodQGkCJfQHYsVee241xAxoRirwTCWkDe6Rw53dpZQLk1I5ihm1lA1C1LhP57VkDBNblUjF9VQNzBG+oyHFRAA88JrqgAUkD429EFCGVRQB7Af6u2lVBAD1qvV9NlUEBMAuAs8l9QQPYJLWWgqU9AxfbPT0mZTEAXyMXl1kBMQNDz01YfN0hA/dhwMyBTREB/L/AXi1JEQBECrrUu6ENApO8Rqv5VQ0AtF4FNXlVDQPIdIwv/aUBAoi6avenfP0BcgCD/BME7QHUJ/DH8hzpAYkCrleCeOUBn+cGBEn03QE8Gu/gFZjdAPrgL5OjqNkAtjDjgP682QFxSBDZtaDVAohmpacBbNUBPBWu4fgA1QHTy2vSD1TJA"},"shape":[39],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p2339","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2340"}}},"glyph":{"type":"object","name":"Line","id":"p2335","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"}}},"nonselection_glyph":{"type":"object","name":"Line","id":"p2336","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p2337","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p2347","attributes":{"data_source":{"id":"p2254"},"view":{"type":"object","name":"CDSView","id":"p2348","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2349"}}},"glyph":{"type":"object","name":"Scatter","id":"p2344","attributes":{"x":{"type":"field","field":"kappa_rank"},"y":{"type":"field","field":"kappa"},"size":{"type":"value","value":5},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p2345","attributes":{"x":{"type":"field","field":"kappa_rank"},"y":{"type":"field","field":"kappa"},"size":{"type":"value","value":5},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p2346","attributes":{"x":{"type":"field","field":"kappa_rank"},"y":{"type":"field","field":"kappa"},"size":{"type":"value","value":5},"line_color":{"type":"field","field":"color"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p2314","attributes":{"logo":null,"tools":[{"id":"p2304"},{"id":"p2303"},{"id":"p2327"},{"id":"p2328"},{"id":"p2329"},{"id":"p2330"},{"type":"object","name":"SaveTool","id":"p2331"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p2322","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2323","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2324"},"axis_label":"Kappa","major_label_policy":{"type":"object","name":"AllLabels","id":"p2325"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p2317","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2318","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2319"},"axis_label":"Components sorted by Kappa","major_label_policy":{"type":"object","name":"AllLabels","id":"p2320"}}}],"center":[{"type":"object","name":"Grid","id":"p2321","attributes":{"axis":{"id":"p2317"}}},{"type":"object","name":"Grid","id":"p2326","attributes":{"dimension":1,"axis":{"id":"p2322"}}},{"type":"object","name":"Span","id":"p2351","attributes":{"name":"elbow","location":72.01029540021777,"line_color":"#000033","line_alpha":0.75,"line_dash":[6]}},{"type":"object","name":"Label","id":"p2352","attributes":{"text":"elbow","text_color":"#000033","text_alpha":0.75,"text_font_size":"10px","x":20,"y":73.45050130822213,"x_units":"screen"}}]}}]}}]}},{"type":"object","name":"Column","id":"p2454","attributes":{"children":[{"id":"p2446"}]}}]}},0,0]]}}]}}';
+        const render_items = [{"docid":"2616bf60-e242-4af6-9d3e-0d9a12dd1483","roots":{"p2464":"cf1c5808-2b15-43dd-b241-7fda2e7386a6"},"root_ids":["p2464"]}];
+        root.Bokeh.embed.embed_items(docs_json, render_items);
+        }
+        if (root.Bokeh !== undefined) {
+          embed_document(root);
+        } else {
+          let attempts = 0;
+          const timer = setInterval(function(root) {
+            if (root.Bokeh !== undefined) {
+              clearInterval(timer);
+              embed_document(root);
+            } else {
+              attempts++;
+              if (attempts > 100) {
+                clearInterval(timer);
+                console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+              }
+            }
+          }, 10, root)
+        }
+      })(window);
+    });
+  };
+  if (document.readyState != "loading") fn();
+  else document.addEventListener("DOMContentLoaded", fn);
+})();
+    </script>
+
+  </body>
+</html>

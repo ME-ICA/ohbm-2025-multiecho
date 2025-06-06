@@ -1,0 +1,37 @@
+{
+    "BIDSVersion": "1.5.0",
+    "DatasetType": "derivative",
+    "GeneratedBy": [
+        {
+            "CodeURL": "https://github.com/ME-ICA/tedana",
+            "Command": "tedana_workflow(data=['five-echo-dataset/p06.SBJ01_S09_Task11_e1.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e2.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e3.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e4.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e5.sm.nii.gz'], tes=[15.4, 29.7, 44.0, 58.3, 72.6], out_dir=/Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_processed, mask=None, convention=bids, prefix=, dummy_scans=0, masktype=['dropout'], fittype=loglin, combmode=t2s, n_independent_echos=None, tree=minimal, external_regressors=None, ica_method=robustica, n_robust_runs=30, tedpca=53, fixed_seed=42, maxit=500, maxrestart=10, tedort=False, gscontrol=None, no_reports=False, png_cmap=coolwarm, verbose=False, low_mem=False, debug=False, quiet=False, overwrite=False, t2smap=None, mixing_file=None)",
+            "Description": "A denoising pipeline for the identification and removal of non-BOLD noise from multi-echo fMRI data.",
+            "Name": "tedana",
+            "Node": {
+                "Machine": "arm64",
+                "Name": "MH02276312MLI.local",
+                "Processor": "arm",
+                "Release": "23.6.0",
+                "System": "Darwin",
+                "Version": "Darwin Kernel Version 23.6.0: Thu Apr 24 20:29:18 PDT 2025; root:xnu-10063.141.1.705.2~1/RELEASE_ARM64_T6000"
+            },
+            "Python": "3.13.2 | packaged by Anaconda, Inc. | (main, Feb  6 2025, 12:55:35) [Clang 14.0.6 ]",
+            "Python_Libraries": {
+                "bokeh": "3.6.2",
+                "mapca": "0.0.5",
+                "matplotlib": "3.10.0",
+                "nibabel": "5.3.2",
+                "nilearn": "0.11.1",
+                "numpy": "2.2.2",
+                "pandas": "2.2.3",
+                "robustica": "0.1.4",
+                "scikit-learn": "1.6.1",
+                "scipy": "1.15.1",
+                "threadpoolctl": "3.5.0",
+                "tqdm": "4.67.1"
+            },
+            "Version": "25.0.1"
+        }
+    ],
+    "Name": "tedana Outputs"
+}

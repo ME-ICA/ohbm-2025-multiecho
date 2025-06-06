@@ -1,0 +1,31 @@
+{
+    "ICA accepted components img": "desc-ICAAccepted_components.nii.gz",
+    "ICA components img": "desc-ICA_components.nii.gz",
+    "ICA cross component metrics json": "desc-ICACrossComponent_metrics.json",
+    "ICA decision tree json": "desc-ICA_decision_tree.json",
+    "ICA decomposition json": "desc-ICA_decomposition.json",
+    "ICA metrics json": "desc-tedana_metrics.json",
+    "ICA metrics tsv": "desc-tedana_metrics.tsv",
+    "ICA mixing tsv": "desc-ICA_mixing.tsv",
+    "ICA status table tsv": "desc-ICA_status_table.tsv",
+    "PCA decomposition json": "desc-PCA_decomposition.json",
+    "PCA metrics json": "desc-PCA_metrics.json",
+    "PCA metrics tsv": "desc-PCA_metrics.tsv",
+    "PCA mixing tsv": "desc-PCA_mixing.tsv",
+    "adaptive mask img": "desc-adaptiveGoodSignal_mask.nii.gz",
+    "combined img": "desc-optcom_bold.nii.gz",
+    "denoised ts img": "desc-denoised_bold.nii.gz",
+    "input img": [
+        "../p06.SBJ01_S09_Task11_e1.sm.nii.gz",
+        "../p06.SBJ01_S09_Task11_e2.sm.nii.gz",
+        "../p06.SBJ01_S09_Task11_e3.sm.nii.gz",
+        "../p06.SBJ01_S09_Task11_e4.sm.nii.gz",
+        "../p06.SBJ01_S09_Task11_e5.sm.nii.gz"
+    ],
+    "rmse img": "desc-rmse_statmap.nii.gz",
+    "s0 img": "S0map.nii.gz",
+    "t2star img": "T2starmap.nii.gz",
+    "z-scored ICA accepted components img": "desc-ICAAccepted_stat-z_components.nii.gz",
+    "z-scored ICA components img": "desc-ICA_stat-z_components.nii.gz",
+    "z-scored PCA components img": "desc-PCA_stat-z_components.nii.gz"
+}

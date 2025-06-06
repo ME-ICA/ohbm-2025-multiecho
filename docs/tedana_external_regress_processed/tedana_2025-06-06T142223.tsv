@@ -1,0 +1,129 @@
+2025-06-06T14:22:23	tedana.tedana_workflow	INFO    	Using output directory: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed
+2025-06-06T14:22:23	tedana.tedana_workflow	INFO    	Initializing and validating component selection tree
+2025-06-06T14:22:23	component_selector.__init__    	INFO    	Performing component selection with demo_external_regressors_motion_task_models
+2025-06-06T14:22:23	component_selector.__init__    	INFO    	Demonstration based on the minimal decision tree that uses partial F stats on a model with multiple external regressors divided by category and task regressors to bias towards keeping.
+2025-06-06T14:22:23	tedana.tedana_workflow	INFO    	Loading input data: ['five-echo-dataset/p06.SBJ01_S09_Task11_e1.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e2.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e3.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e4.sm.nii.gz', 'five-echo-dataset/p06.SBJ01_S09_Task11_e5.sm.nii.gz']
+2025-06-06T14:22:25	io.__init__    	INFO    	Generating figures directory: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed/figures
+2025-06-06T14:22:25	tedana.tedana_workflow	WARNING 	Computing EPI mask from first echo using nilearn's compute_epi_mask function. Most external pipelines include more reliable masking functions. It is strongly recommended to provide an external mask, and to visually confirm that mask accurately conforms to data boundaries.
+2025-06-06T14:22:25	utils.make_adaptive_mask	INFO    	Echo-wise intensity thresholds for adaptive mask: [5853.6399821  4862.62750244 4073.26911418 3377.14188232 2800.73880819]
+2025-06-06T14:22:25	utils.make_adaptive_mask	WARNING 	4 voxels in user-defined mask do not have good signal. Removing voxels from mask.
+2025-06-06T14:22:25	tedana.tedana_workflow	INFO    	Computing T2* map
+2025-06-06T14:22:26	combine.make_optcom 	INFO    	Optimally combining data with voxel-wise T2* estimates
+2025-06-06T14:22:27	tedana.tedana_workflow	INFO    	Writing optimally combined data set: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed/desc-optcom_bold.nii.gz
+2025-06-06T14:22:27	tedana.tedana_workflow	INFO    	Using supplied mixing matrix from ICA
+2025-06-06T14:22:27	collect.generate_metrics	INFO    	Calculating weight maps
+2025-06-06T14:22:27	collect.generate_metrics	INFO    	Calculating parameter estimate maps for optimally combined data
+2025-06-06T14:22:27	collect.generate_metrics	INFO    	Calculating z-statistic maps
+2025-06-06T14:22:27	collect.generate_metrics	INFO    	Calculating F-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Thresholding z-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Calculating T2* F-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Calculating S0 F-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Counting significant voxels in T2* F-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Counting significant voxels in S0 F-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Thresholding optimal combination beta maps to match T2* F-statistic maps
+2025-06-06T14:22:29	collect.generate_metrics	INFO    	Thresholding optimal combination beta maps to match S0 F-statistic maps
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating kappa and rho
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating variance explained
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating normalized variance explained
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating DSI between thresholded T2* F-statistic and optimal combination beta maps
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating DSI between thresholded S0 F-statistic and optimal combination beta maps
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating signal-noise t-statistics
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating external regressor fits. Fits all external nuisance regressors to a single model using an F statistic
+2025-06-06T14:22:30	collect.generate_metrics	INFO    	Calculating external regressor fits. Fits all task regressors to a single model using an F statistic
+2025-06-06T14:22:30	external.fit_regressors	INFO    	External regressors fit for nuisance includes detrending with 2 Legendre Polynomial regressors.
+2025-06-06T14:22:30	external.fit_mixing_to_regressors	INFO    	Running fit_mixing_to_regressors for nuisance
+2025-06-06T14:22:30	external.fit_mixing_to_regressors	INFO    	ICA matrix has 160 time points and 39 components
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Size for base regressor model for nuisance: (160, 2)
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Size for full regressor model for nuisance: (160, 17)
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Regressors in full model for nuisance: ['baseline 0', 'baseline 1', 'csf1', 'csf2', 'csf3', 'mot_dpitch', 'mot_droll', 'mot_dx', 'mot_dy', 'mot_dyaw', 'mot_dz', 'mot_pitch', 'mot_roll', 'mot_x', 'mot_y', 'mot_yaw', 'mot_z']
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Size of external regressor partial model 'no Motion': (160, 5)
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Regressors in partial model (everything but regressors of interest) 'no Motion': ['baseline 0', 'baseline 1', 'csf1', 'csf2', 'csf3']
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Size of external regressor partial model 'no CSF': (160, 14)
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Regressors in partial model (everything but regressors of interest) 'no CSF': ['baseline 0', 'baseline 1', 'mot_dpitch', 'mot_droll', 'mot_dx', 'mot_dy', 'mot_dyaw', 'mot_dz', 'mot_pitch', 'mot_roll', 'mot_x', 'mot_y', 'mot_yaw', 'mot_z']
+2025-06-06T14:22:30	external.fit_regressors	INFO    	External regressors fit for task includes detrending with 2 Legendre Polynomial regressors.
+2025-06-06T14:22:30	external.fit_mixing_to_regressors	INFO    	Running fit_mixing_to_regressors for task
+2025-06-06T14:22:30	external.fit_mixing_to_regressors	INFO    	ICA matrix has 160 time points and 39 components
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Size for base regressor model for task: (160, 2)
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Size for full regressor model for task: (160, 3)
+2025-06-06T14:22:30	external.build_fstat_regressor_models	INFO    	Regressors in full model for task: ['baseline 0', 'baseline 1', 'signal_checkerboard']
+2025-06-06T14:22:30	tedica.automatic_selection	INFO    	Performing ICA component selection with tree: demo_external_regressors_motion_task_models
+2025-06-06T14:22:30	selection_nodes.manual_classify	INFO    	Step 0: manual_classify: Set all to unclassified 
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 0: No components fit criterion False to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 0: manual_classify applied to 39 components. 39 True -> unclassified. 0 False -> nochange.
+2025-06-06T14:22:30	selection_nodes.manual_classify	INFO    	Step 0: manual_classify component classification tags are cleared
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 0: Total component classifications: 39 unclassified
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 1: left_op_right: provisionalreject if rho>kappa, else nochange
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 1: left_op_right applied to 39 components. 5 True -> provisionalreject. 34 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 1: Total component classifications: 5 provisionalreject, 34 unclassified
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 2: left_op_right: provisionalreject if ['countsigFS0>countsigFT2 & countsigFT2>0'], else nochange
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 2: left_op_right applied to 39 components. 2 True -> provisionalreject. 37 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 2: Total component classifications: 5 provisionalreject, 34 unclassified
+2025-06-06T14:22:30	selection_nodes.calc_median 	INFO    	Step 3: calc_median: Median(median_varex)
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 3: calc_median calculated: median_varex=0.5933764147849467
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 3: Total component classifications: 5 provisionalreject, 34 unclassified
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 4: left_op_right: provisionalreject if ['dice_FS0>dice_FT2 & variance explained>0.59'], else nochange
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 4: No components fit criterion True to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 4: left_op_right applied to 39 components. 0 True -> provisionalreject. 39 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 4: Total component classifications: 5 provisionalreject, 34 unclassified
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 5: left_op_right: provisionalreject if ['0>signal-noise_t & variance explained>0.59'], else nochange
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 5: left_op_right applied to 39 components. 4 True -> provisionalreject. 35 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 5: Total component classifications: 7 provisionalreject, 32 unclassified
+2025-06-06T14:22:30	selection_nodes.calc_kappa_elbow	INFO    	Step 6: calc_kappa_elbow: Calc Kappa Elbow
+2025-06-06T14:22:30	selection_utils.kappa_elbow_kundu	INFO    	Calculating kappa elbow based on all components.
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 6: calc_kappa_elbow calculated: kappa_elbow_kundu=72.01029540021777, kappa_allcomps_elbow=72.01029540021777, kappa_nonsig_elbow=None, varex_upper_p=0.7008466697851374
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 6: Total component classifications: 7 provisionalreject, 32 unclassified
+2025-06-06T14:22:30	selection_nodes.calc_rho_elbow	INFO    	Step 7: calc_rho_elbow: Calc Rho Elbow
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 7: calc_rho_elbow calculated: rho_elbow_liberal=20.055647980541103, rho_allcomps_elbow=20.055647980541103, rho_unclassified_elbow=19.716371799664067, elbow_f05=7.708647422176786
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 7: Total component classifications: 7 provisionalreject, 32 unclassified
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 8: left_op_right: provisionalaccept if ['kappa>=72.01 & rho<20.06'], else provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 8: left_op_right If kappa> kappa elbow and rho<rho elbow, provisional accept. Otherwise provisional reject
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 8: left_op_right applied to 32 components. 12 True -> provisionalaccept. 20 False -> provisionalreject.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 8: Total component classifications: 12 provisionalaccept, 27 provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 9: left_op_right: provisionalaccept if ['kappa>2*rho & kappa>72.01'], else nochange
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 9: left_op_right If kappa>elbow and kappa>2*rho accept even if rho>elbow
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 9: left_op_right applied to 27 components. 1 True -> provisionalaccept. 26 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 9: Total component classifications: 13 provisionalaccept, 26 provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 10: left_op_right: provisionalreject if ['pval nuisance model<0.05 & R2stat nuisance model>0.5'], else nochange
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 10: left_op_right If external regressors fit with p<0.05 and model R2>0.5 of the variance, then reject.
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 10: left_op_right applied to 39 components. 10 True -> provisionalreject. 29 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 10: Total component classifications: 11 provisionalaccept, 28 provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 11: left_op_right: nochange if ['pval nuisance model<0.05 & R2stat nuisance model>0.5 & pval nuisance Motion partial model<0.05'], else nochange
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 11: No components fit criterion True to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 11: left_op_right applied to 28 components. 0 True -> nochange. 28 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 11: Total component classifications: 11 provisionalaccept, 28 provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 12: left_op_right: nochange if ['pval nuisance model<0.05 & R2stat nuisance model>0.5 & pval nuisance CSF partial model<0.05'], else nochange
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 12: No components fit criterion True to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 12: left_op_right applied to 28 components. 0 True -> nochange. 28 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 12: Total component classifications: 11 provisionalaccept, 28 provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_left_op_right	INFO    	Step 13: left_op_right: accepted if ['pval task model<0.05 & R2stat task model>0.5 & kappa>=72.01'], else nochange
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 13: No components fit criterion True to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 13: left_op_right applied to 28 components. 0 True -> accepted. 28 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 13: Total component classifications: 11 provisionalaccept, 28 provisionalreject
+2025-06-06T14:22:30	selection_nodes.dec_variance_lessthan_thresholds	INFO    	Step 14: variance_lt_thresholds: accepted if variance explained<0.1. All variance<1.0, else nochange
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 14: No components fit criterion True to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 14: variance_lt_thresholds applied to 28 components. 0 True -> accepted. 28 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 14: Total component classifications: 11 provisionalaccept, 28 provisionalreject
+2025-06-06T14:22:30	selection_nodes.manual_classify	INFO    	Step 15: manual_classify: Set provisionalaccept to accepted 
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 15: No components fit criterion False to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 15: manual_classify applied to 11 components. 11 True -> accepted. 0 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 15: Total component classifications: 11 accepted, 28 provisionalreject
+2025-06-06T14:22:30	selection_nodes.manual_classify	INFO    	Step 16: manual_classify: Set ['provisionalreject', 'unclassified'] to rejected 
+2025-06-06T14:22:30	selection_utils.comptable_classification_changer	INFO    	Step 16: No components fit criterion False to change classification
+2025-06-06T14:22:30	selection_utils.log_decision_tree_step	INFO    	Step 16: manual_classify applied to 28 components. 28 True -> rejected. 0 False -> nochange.
+2025-06-06T14:22:30	selection_utils.log_classification_counts	INFO    	Step 16: Total component classifications: 11 accepted, 28 rejected
+2025-06-06T14:22:31	io.denoise_ts  	INFO    	Variance explained by decomposition: 94.68%
+2025-06-06T14:22:31	io.write_split_ts	INFO    	Writing denoised time series: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed/desc-denoised_bold.nii.gz
+2025-06-06T14:22:32	io.writeresults	INFO    	Writing full ICA coefficient feature set: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed/desc-ICA_components.nii.gz
+2025-06-06T14:22:32	io.writeresults	INFO    	Writing denoised ICA coefficient feature set: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed/desc-ICAAccepted_components.nii.gz
+2025-06-06T14:22:32	io.writeresults	INFO    	Writing Z-normalized spatial component maps: /Users/handwerkerd/code/meica/ohbm-2025-multiecho/five-echo-dataset/tedana_external_regress_processed/desc-ICAAccepted_stat-z_components.nii.gz
+2025-06-06T14:22:32	tedana.tedana_workflow	INFO    	Making figures folder with static component maps and timecourse plots.
+2025-06-06T14:22:33	io.denoise_ts  	INFO    	Variance explained by decomposition: 94.68%
+2025-06-06T14:23:19	tedana.tedana_workflow	INFO    	Generating dynamic report
+2025-06-06T14:23:19	html_report._update_template_bokeh	INFO    	Checking for adaptive mask: adaptive_mask.svg, exists: True
+2025-06-06T14:23:19	html_report._update_template_bokeh	INFO    	T2* files exist: True
+2025-06-06T14:23:19	html_report._update_template_bokeh	INFO    	S0 files exist: True
+2025-06-06T14:23:19	html_report._update_template_bokeh	INFO    	RMSE files exist: True
+2025-06-06T14:23:19	html_report._update_template_bokeh	INFO    	External regressors exist: True
+2025-06-06T14:23:19	tedana.tedana_workflow	INFO    	Workflow completed
+2025-06-06T14:23:19	utils.log_newsletter_info	INFO    	Don't forget to subscribe to the tedana newsletter for updates! This is a very low volume email list.
+2025-06-06T14:23:19	utils.log_newsletter_info	INFO    	https://groups.google.com/g/tedana-newsletter

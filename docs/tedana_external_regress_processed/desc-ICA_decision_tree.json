@@ -1,0 +1,595 @@
+{
+    "classification_tags": [
+        "Likely BOLD",
+        "Unlikely BOLD",
+        "Low variance",
+        "External regressors",
+        "Fits motion external regressors",
+        "Fits CSF external regressors",
+        "Fits task"
+    ],
+    "external_regressor_config": [
+        {
+            "detrend": true,
+            "info": "Fits all external nuisance regressors to a single model using an F statistic",
+            "partial_models": {
+                "CSF": [
+                    "csf1",
+                    "csf2",
+                    "csf3"
+                ],
+                "Motion": [
+                    "mot_dpitch",
+                    "mot_droll",
+                    "mot_dx",
+                    "mot_dy",
+                    "mot_dyaw",
+                    "mot_dz",
+                    "mot_pitch",
+                    "mot_roll",
+                    "mot_x",
+                    "mot_y",
+                    "mot_yaw",
+                    "mot_z"
+                ]
+            },
+            "regress_ID": "nuisance",
+            "regressors": [
+                "csf1",
+                "csf2",
+                "csf3",
+                "mot_dpitch",
+                "mot_droll",
+                "mot_dx",
+                "mot_dy",
+                "mot_dyaw",
+                "mot_dz",
+                "mot_pitch",
+                "mot_roll",
+                "mot_x",
+                "mot_y",
+                "mot_yaw",
+                "mot_z"
+            ],
+            "report": "External nuisance regressors that fit to components using a linear model were rejected.",
+            "statistic": "F"
+        },
+        {
+            "detrend": true,
+            "info": "Fits all task regressors to a single model using an F statistic",
+            "regress_ID": "task",
+            "regressors": [
+                "signal_checkerboard"
+            ],
+            "report": "Task regressors that fit to components using a linear model and have some T2* weighting were accepted even if they would have been rejected base on other criteriea.",
+            "statistic": "F"
+        }
+    ],
+    "info": "Demonstration based on the minimal decision tree that uses partial F stats on a model with multiple external regressors divided by category and task regressors to bias towards keeping.",
+    "intermediate_classifications": [
+        "provisionalaccept",
+        "provisionalreject"
+    ],
+    "necessary_metrics": [
+        "kappa",
+        "rho",
+        "countsigFS0",
+        "countsigFT2",
+        "dice_FS0",
+        "dice_FT2",
+        "signal-noise_t",
+        "variance explained",
+        "pval nuisance model",
+        "pval task model",
+        "pval nuisance Motion partial model",
+        "pval nuisance CSF partial model",
+        "R2stat nuisance model",
+        "R2stat task model"
+    ],
+    "nodes": [
+        {
+            "functionname": "manual_classify",
+            "kwargs": {
+                "clear_classification_tags": true,
+                "dont_warn_reclassify": true
+            },
+            "outputs": {
+                "decision_node_idx": 0,
+                "n_false": 0,
+                "n_true": 39,
+                "node_label": "Set all to unclassified",
+                "used_metrics": []
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "new_classification": "unclassified"
+            }
+        },
+        {
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 1,
+                "n_false": 34,
+                "n_true": 5,
+                "node_label": "rho>kappa",
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "kappa",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "provisionalreject",
+                "left": "rho",
+                "op": ">",
+                "right": "kappa"
+            }
+        },
+        {
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "countsigFT2",
+                "op2": ">",
+                "right2": 0,
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 2,
+                "n_false": 37,
+                "n_true": 2,
+                "node_label": [
+                    "countsigFS0>countsigFT2 & countsigFT2>0"
+                ],
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "countsigFT2",
+                    "countsigFS0"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "provisionalreject",
+                "left": "countsigFS0",
+                "op": ">",
+                "right": "countsigFT2"
+            }
+        },
+        {
+            "functionname": "calc_median",
+            "outputs": {
+                "calc_cross_comp_metrics": [
+                    "median_varex"
+                ],
+                "decision_node_idx": 3,
+                "median_varex": 0.5933764147849467,
+                "node_label": "Median(median_varex)",
+                "used_metrics": [
+                    "variance explained"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "median_label": "varex",
+                "metric_name": "variance explained"
+            }
+        },
+        {
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "variance explained",
+                "op2": ">",
+                "right2": "median_varex",
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 4,
+                "n_false": 39,
+                "n_true": 0,
+                "node_label": [
+                    "dice_FS0>dice_FT2 & variance explained>0.59"
+                ],
+                "used_cross_component_metrics": [
+                    "median_varex"
+                ],
+                "used_metrics": [
+                    "dice_FS0",
+                    "variance explained",
+                    "dice_FT2"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "provisionalreject",
+                "left": "dice_FS0",
+                "op": ">",
+                "right": "dice_FT2"
+            }
+        },
+        {
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "variance explained",
+                "op2": ">",
+                "right2": "median_varex",
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 5,
+                "n_false": 35,
+                "n_true": 4,
+                "node_label": [
+                    "0>signal-noise_t & variance explained>0.59"
+                ],
+                "used_cross_component_metrics": [
+                    "median_varex"
+                ],
+                "used_metrics": [
+                    "signal-noise_t",
+                    "variance explained"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "provisionalreject",
+                "left": 0,
+                "op": ">",
+                "right": "signal-noise_t"
+            }
+        },
+        {
+            "_comment": "",
+            "functionname": "calc_kappa_elbow",
+            "outputs": {
+                "calc_cross_comp_metrics": [
+                    "kappa_elbow_kundu",
+                    "kappa_allcomps_elbow",
+                    "kappa_nonsig_elbow",
+                    "varex_upper_p"
+                ],
+                "decision_node_idx": 6,
+                "kappa_allcomps_elbow": 72.01029540021777,
+                "kappa_elbow_kundu": 72.01029540021777,
+                "kappa_nonsig_elbow": null,
+                "n_echos": 5,
+                "n_independent_echos": 5,
+                "node_label": "Calc Kappa Elbow",
+                "used_metrics": [
+                    "kappa"
+                ],
+                "varex_upper_p": 0.7008466697851374
+            },
+            "parameters": {
+                "decide_comps": "all"
+            }
+        },
+        {
+            "_comment": "",
+            "functionname": "calc_rho_elbow",
+            "kwargs": {
+                "log_extra_info": "",
+                "rho_elbow_type": "liberal",
+                "subset_decide_comps": "unclassified"
+            },
+            "outputs": {
+                "calc_cross_comp_metrics": [
+                    "rho_elbow_liberal",
+                    "rho_allcomps_elbow",
+                    "rho_unclassified_elbow",
+                    "elbow_f05"
+                ],
+                "decision_node_idx": 7,
+                "elbow_f05": 7.708647422176786,
+                "n_echos": 5,
+                "n_independent_echos": 5,
+                "node_label": "Calc Rho Elbow",
+                "rho_allcomps_elbow": 20.055647980541103,
+                "rho_elbow_liberal": 20.055647980541103,
+                "rho_unclassified_elbow": 19.716371799664067,
+                "used_metrics": [
+                    "kappa",
+                    "variance explained",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all"
+            }
+        },
+        {
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "rho",
+                "log_extra_info": "If kappa> kappa elbow and rho<rho elbow, provisional accept. Otherwise provisional reject",
+                "op2": "<",
+                "right2": "rho_elbow_liberal",
+                "tag_if_true": "Likely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 8,
+                "n_false": 20,
+                "n_true": 12,
+                "node_label": [
+                    "kappa>=72.01 & rho<20.06"
+                ],
+                "used_cross_component_metrics": [
+                    "rho_elbow_liberal",
+                    "kappa_elbow_kundu"
+                ],
+                "used_metrics": [
+                    "kappa",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "unclassified",
+                "if_false": "provisionalreject",
+                "if_true": "provisionalaccept",
+                "left": "kappa",
+                "op": ">=",
+                "right": "kappa_elbow_kundu"
+            }
+        },
+        {
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "kappa",
+                "log_extra_info": "If kappa>elbow and kappa>2*rho accept even if rho>elbow",
+                "op2": ">",
+                "right2": "kappa_elbow_kundu",
+                "right_scale": 2,
+                "tag_if_false": "Unlikely BOLD",
+                "tag_if_true": "Likely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 9,
+                "n_false": 26,
+                "n_true": 1,
+                "node_label": [
+                    "kappa>2*rho & kappa>72.01"
+                ],
+                "used_cross_component_metrics": [
+                    "kappa_elbow_kundu"
+                ],
+                "used_metrics": [
+                    "kappa",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "provisionalreject",
+                "if_false": "nochange",
+                "if_true": "provisionalaccept",
+                "left": "kappa",
+                "op": ">",
+                "right": "rho"
+            }
+        },
+        {
+            "_comment": "Provisionally rejecting components that fit to the external regressor noise model",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "R2stat nuisance model",
+                "log_extra_info": "If external regressors fit with p<0.05 and model R2>0.5 of the variance, then reject.",
+                "op2": ">",
+                "right2": 0.5,
+                "tag_if_true": "External regressors"
+            },
+            "outputs": {
+                "decision_node_idx": 10,
+                "n_false": 29,
+                "n_true": 10,
+                "node_label": [
+                    "pval nuisance model<0.05 & R2stat nuisance model>0.5"
+                ],
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "pval nuisance model",
+                    "R2stat nuisance model"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "provisionalreject",
+                "left": "pval nuisance model",
+                "op": "<",
+                "right": 0.05
+            }
+        },
+        {
+            "_comment": "Identical to the one above, & not changing classifications, but tagging if fits to motion regressors",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "R2stat nuisance model",
+                "left3": "pval nuisance Motion partial model",
+                "op2": ">",
+                "op3": "<",
+                "right2": 0.5,
+                "right3": 0.05,
+                "tag_if_true": "Fits motion external regressors"
+            },
+            "outputs": {
+                "decision_node_idx": 11,
+                "n_false": 28,
+                "n_true": 0,
+                "node_label": [
+                    "pval nuisance model<0.05 & R2stat nuisance model>0.5 & pval nuisance Motion partial model<0.05"
+                ],
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "pval nuisance model",
+                    "R2stat nuisance model",
+                    "pval nuisance Motion partial model"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "provisionalreject",
+                "if_false": "nochange",
+                "if_true": "nochange",
+                "left": "pval nuisance model",
+                "op": "<",
+                "right": 0.05
+            }
+        },
+        {
+            "_comment": "Identical to the one above, & not changing classifications, but tagging if fits to CSF regressors",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "R2stat nuisance model",
+                "left3": "pval nuisance CSF partial model",
+                "op2": ">",
+                "op3": "<",
+                "right2": 0.5,
+                "right3": 0.05,
+                "tag_if_true": "Fits CSF external regressors"
+            },
+            "outputs": {
+                "decision_node_idx": 12,
+                "n_false": 28,
+                "n_true": 0,
+                "node_label": [
+                    "pval nuisance model<0.05 & R2stat nuisance model>0.5 & pval nuisance CSF partial model<0.05"
+                ],
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "pval nuisance model",
+                    "R2stat nuisance model",
+                    "pval nuisance CSF partial model"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "provisionalreject",
+                "if_false": "nochange",
+                "if_true": "nochange",
+                "left": "pval nuisance model",
+                "op": "<",
+                "right": 0.05
+            }
+        },
+        {
+            "_comment": "Keep if it fits task regressors and contains T2* signal, as defined by kappa>elbow",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "R2stat task model",
+                "left3": "kappa",
+                "op2": ">",
+                "op3": ">=",
+                "right2": 0.5,
+                "right3": "kappa_elbow_kundu",
+                "tag_if_true": "Fits task"
+            },
+            "outputs": {
+                "decision_node_idx": 13,
+                "n_false": 28,
+                "n_true": 0,
+                "node_label": [
+                    "pval task model<0.05 & R2stat task model>0.5 & kappa>=72.01"
+                ],
+                "used_cross_component_metrics": [
+                    "kappa_elbow_kundu"
+                ],
+                "used_metrics": [
+                    "pval task model",
+                    "kappa",
+                    "R2stat task model"
+                ]
+            },
+            "parameters": {
+                "decide_comps": [
+                    "provisionalreject"
+                ],
+                "if_false": "nochange",
+                "if_true": "accepted",
+                "left": "pval task model",
+                "op": "<",
+                "right": 0.05
+            }
+        },
+        {
+            "functionname": "dec_variance_lessthan_thresholds",
+            "kwargs": {
+                "all_comp_threshold": 1.0,
+                "single_comp_threshold": 0.1,
+                "tag_if_true": "Low variance",
+                "var_metric": "variance explained"
+            },
+            "outputs": {
+                "decision_node_idx": 14,
+                "n_false": 28,
+                "n_true": 0,
+                "node_label": "variance explained<0.1. All variance<1.0",
+                "used_metrics": [
+                    "variance explained"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "provisionalreject",
+                "if_false": "nochange",
+                "if_true": "accepted"
+            }
+        },
+        {
+            "functionname": "manual_classify",
+            "kwargs": {
+                "tag": "Likely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 15,
+                "n_false": 0,
+                "n_true": 11,
+                "node_label": "Set provisionalaccept to accepted",
+                "used_metrics": []
+            },
+            "parameters": {
+                "decide_comps": "provisionalaccept",
+                "new_classification": "accepted"
+            }
+        },
+        {
+            "functionname": "manual_classify",
+            "kwargs": {
+                "tag": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 16,
+                "n_false": 0,
+                "n_true": 28,
+                "node_label": "Set ['provisionalreject', 'unclassified'] to rejected",
+                "used_metrics": []
+            },
+            "parameters": {
+                "decide_comps": [
+                    "provisionalreject",
+                    "unclassified"
+                ],
+                "new_classification": "rejected"
+            }
+        }
+    ],
+    "report": "This is based on the minimal criteria of the original MEICA decision tree \\citep{kundu2013integrated} without the more aggressive noise removal steps \\citep{dupre2021te}.",
+    "tree_id": "demo_external_regressors_motion_task_models",
+    "used_metrics": [
+        "countsigFT2",
+        "rho",
+        "signal-noise_t",
+        "R2stat nuisance model",
+        "countsigFS0",
+        "pval nuisance model",
+        "kappa",
+        "variance explained",
+        "dice_FT2",
+        "pval task model",
+        "R2stat task model",
+        "dice_FS0",
+        "pval nuisance CSF partial model",
+        "pval nuisance Motion partial model"
+    ]
+}

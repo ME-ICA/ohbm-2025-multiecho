@@ -1,0 +1,400 @@
+{
+    "_comment": "More information on the minimial decision tree and how it differs from other options is at https://tedana.readthedocs.io/en/stable/included_decision_trees.html. Descriptions of the metrics used are in desc-tedana.metrics.json, which is ouputted when this tree is run",
+    "classification_tags": [
+        "Likely BOLD",
+        "Unlikely BOLD",
+        "Low variance"
+    ],
+    "external_regressor_config": null,
+    "info": "first version of minimal decision tree",
+    "intermediate_classifications": [
+        "provisionalaccept",
+        "provisionalreject"
+    ],
+    "necessary_metrics": [
+        "kappa",
+        "rho",
+        "countsigFS0",
+        "countsigFT2",
+        "dice_FS0",
+        "dice_FT2",
+        "signal-noise_t",
+        "variance explained"
+    ],
+    "nodes": [
+        {
+            "_comment": "All components are initially labeled as 'unclassified'.",
+            "functionname": "manual_classify",
+            "kwargs": {
+                "clear_classification_tags": true,
+                "dont_warn_reclassify": true
+            },
+            "outputs": {
+                "decision_node_idx": 0,
+                "n_false": 0,
+                "n_true": 39,
+                "node_label": "Set all to unclassified",
+                "used_metrics": []
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "new_classification": "unclassified"
+            }
+        },
+        {
+            "_comment": "The first four steps are for rejecting components that very unlikely to have substantial T2* signal. Any components with rho greater than kappa are rejected. Higher rho than kappa means that the component better fits the TE-independence (S0) model than the TE-dependence (T2*) model.",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 1,
+                "n_false": 34,
+                "n_true": 5,
+                "node_label": "rho>kappa",
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "kappa",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "rejected",
+                "left": "rho",
+                "op": ">",
+                "right": "kappa"
+            }
+        },
+        {
+            "_comment": "Any components with more voxels that are significant based on the S0 model's F-statistics than the T2* model's are rejected, as long as there is at least one significant voxel for the T2 model.",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "countsigFT2",
+                "op2": ">",
+                "right2": 0,
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 2,
+                "n_false": 37,
+                "n_true": 2,
+                "node_label": [
+                    "countsigFS0>countsigFT2 & countsigFT2>0"
+                ],
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "countsigFT2",
+                    "countsigFS0"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "rejected",
+                "left": "countsigFS0",
+                "op": ">",
+                "right": "countsigFT2"
+            }
+        },
+        {
+            "_comment": "The median variance explained is calculated across all components, for use in later steps.",
+            "functionname": "calc_median",
+            "outputs": {
+                "calc_cross_comp_metrics": [
+                    "median_varex"
+                ],
+                "decision_node_idx": 3,
+                "median_varex": 0.5933764147849467,
+                "node_label": "Median(median_varex)",
+                "used_metrics": [
+                    "variance explained"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "median_label": "varex",
+                "metric_name": "variance explained"
+            }
+        },
+        {
+            "_comment": "Any components with higher S0 model beta map-F-statistic map Dice similarity index than T2 model beta map-F-statistic map Dice similarity index and greater than median variance explained are rejected. In slightly plainer English, this step rejects any high-variance components where significant voxels in the F-stat map overlap more with highly S0-associated voxels than T2*-associated voxels.",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "variance explained",
+                "op2": ">",
+                "right2": "median_varex",
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 4,
+                "n_false": 39,
+                "n_true": 0,
+                "node_label": [
+                    "dice_FS0>dice_FT2 & variance explained>0.59"
+                ],
+                "used_cross_component_metrics": [
+                    "median_varex"
+                ],
+                "used_metrics": [
+                    "dice_FS0",
+                    "variance explained",
+                    "dice_FT2"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "rejected",
+                "left": "dice_FS0",
+                "op": ">",
+                "right": "dice_FT2"
+            }
+        },
+        {
+            "_comment": "Any components with a negative t-statistic comparing the distribution of T2* model F-statistics from voxels in clusters to those of voxels not in clusters and variance explained greater than median are rejected. That is reject any high-variance components exhibiting more 'speckled' T2*-associated voxels than 'clustered' ones.",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "left2": "variance explained",
+                "op2": ">",
+                "right2": "median_varex",
+                "tag_if_true": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 5,
+                "n_false": 35,
+                "n_true": 4,
+                "node_label": [
+                    "0>signal-noise_t & variance explained>0.59"
+                ],
+                "used_cross_component_metrics": [
+                    "median_varex"
+                ],
+                "used_metrics": [
+                    "signal-noise_t",
+                    "variance explained"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all",
+                "if_false": "nochange",
+                "if_true": "rejected",
+                "left": 0,
+                "op": ">",
+                "right": "signal-noise_t"
+            }
+        },
+        {
+            "_comment": "The kappa elbow is calculated from all components, for use in later steps.",
+            "functionname": "calc_kappa_elbow",
+            "outputs": {
+                "calc_cross_comp_metrics": [
+                    "kappa_elbow_kundu",
+                    "kappa_allcomps_elbow",
+                    "kappa_nonsig_elbow",
+                    "varex_upper_p"
+                ],
+                "decision_node_idx": 6,
+                "kappa_allcomps_elbow": 72.0102954002152,
+                "kappa_elbow_kundu": 72.0102954002152,
+                "kappa_nonsig_elbow": null,
+                "n_echos": 5,
+                "n_independent_echos": 5,
+                "node_label": "Calc Kappa Elbow",
+                "used_metrics": [
+                    "kappa"
+                ],
+                "varex_upper_p": 0.7008466697851388
+            },
+            "parameters": {
+                "decide_comps": "all"
+            }
+        },
+        {
+            "_comment": "This step determines the 'rho elbow' based on the rho values for all of the components, as well as just the unclassified components. It calculates the elbow for each set of components and then takes the maximum of the two.",
+            "functionname": "calc_rho_elbow",
+            "kwargs": {
+                "rho_elbow_type": "liberal",
+                "subset_decide_comps": "unclassified"
+            },
+            "outputs": {
+                "calc_cross_comp_metrics": [
+                    "rho_elbow_liberal",
+                    "rho_allcomps_elbow",
+                    "rho_unclassified_elbow",
+                    "elbow_f05"
+                ],
+                "decision_node_idx": 7,
+                "elbow_f05": 7.708647422176786,
+                "n_echos": 5,
+                "n_independent_echos": 5,
+                "node_label": "Calc Rho Elbow",
+                "rho_allcomps_elbow": 20.05564798054118,
+                "rho_elbow_liberal": 20.05564798054118,
+                "rho_unclassified_elbow": 19.716371799655956,
+                "used_metrics": [
+                    "kappa",
+                    "variance explained",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "all"
+            }
+        },
+        {
+            "_comment": "Any unclassified components with kappa greater than or equal to the kappa elbow are provisionally accepted. Any remaining unclassified components are provisionally rejected. Nothing is left 'unclassified'",
+            "functionname": "dec_left_op_right",
+            "outputs": {
+                "decision_node_idx": 8,
+                "n_false": 19,
+                "n_true": 13,
+                "node_label": "kappa>=72.01",
+                "used_cross_component_metrics": [
+                    "kappa_elbow_kundu"
+                ],
+                "used_metrics": [
+                    "kappa"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "unclassified",
+                "if_false": "provisionalreject",
+                "if_true": "provisionalaccept",
+                "left": "kappa",
+                "op": ">=",
+                "right": "kappa_elbow_kundu"
+            }
+        },
+        {
+            "_comment": "Any provisionally accepted components with kappa greater than two times rho are accepted. That is, even if a component has a high rho value, if kappa above threshold and substantially higher, assume it as something work keeping and accept it",
+            "functionname": "dec_left_op_right",
+            "kwargs": {
+                "right_scale": 2,
+                "tag_if_true": "Likely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 9,
+                "n_false": 0,
+                "n_true": 13,
+                "node_label": "kappa>2*rho",
+                "used_cross_component_metrics": [],
+                "used_metrics": [
+                    "kappa",
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "provisionalaccept",
+                "if_false": "nochange",
+                "if_true": "accepted",
+                "left": "kappa",
+                "op": ">",
+                "right": "rho"
+            }
+        },
+        {
+            "_comment": "Any provisionally accepted or provisionally rejected components with rho values greater than the liberal rho elbow are provisionally rejected.",
+            "functionname": "dec_left_op_right",
+            "outputs": {
+                "decision_node_idx": 10,
+                "n_false": 16,
+                "n_true": 3,
+                "node_label": "rho>20.06",
+                "used_cross_component_metrics": [
+                    "rho_elbow_liberal"
+                ],
+                "used_metrics": [
+                    "rho"
+                ]
+            },
+            "parameters": {
+                "decide_comps": [
+                    "provisionalreject",
+                    "provisionalaccept"
+                ],
+                "if_false": "nochange",
+                "if_true": "provisionalreject",
+                "left": "rho",
+                "op": ">",
+                "right": "rho_elbow_liberal"
+            }
+        },
+        {
+            "_comment": "This step flags remaining low-variance components (less than 0.1%) and accepts up to 1% cumulative variance across these components. This is done because these components don't explain enough variance to be worth further reducing the degrees of freedom of the denoised data.",
+            "functionname": "dec_variance_lessthan_thresholds",
+            "kwargs": {
+                "all_comp_threshold": 1.0,
+                "single_comp_threshold": 0.1,
+                "tag_if_true": "Low variance",
+                "var_metric": "variance explained"
+            },
+            "outputs": {
+                "decision_node_idx": 11,
+                "n_false": 19,
+                "n_true": 0,
+                "node_label": "variance explained<0.1. All variance<1.0",
+                "used_metrics": [
+                    "variance explained"
+                ]
+            },
+            "parameters": {
+                "decide_comps": "provisionalreject",
+                "if_false": "nochange",
+                "if_true": "accepted"
+            }
+        },
+        {
+            "_comment": "All remaining provisionally accepted components are accepted.",
+            "functionname": "manual_classify",
+            "kwargs": {
+                "tag": "Likely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 12,
+                "n_false": 0,
+                "n_true": 0,
+                "node_label": "Set provisionalaccept to accepted",
+                "used_metrics": []
+            },
+            "parameters": {
+                "decide_comps": "provisionalaccept",
+                "new_classification": "accepted"
+            }
+        },
+        {
+            "_comment": "All remaining unclassified (nothing should be unclassified) or provisionally rejected components are rejected.",
+            "functionname": "manual_classify",
+            "kwargs": {
+                "tag": "Unlikely BOLD"
+            },
+            "outputs": {
+                "decision_node_idx": 13,
+                "n_false": 0,
+                "n_true": 19,
+                "node_label": "Set ['provisionalreject', 'unclassified'] to rejected",
+                "used_metrics": []
+            },
+            "parameters": {
+                "decide_comps": [
+                    "provisionalreject",
+                    "unclassified"
+                ],
+                "new_classification": "rejected"
+            }
+        }
+    ],
+    "report": "The minimal decision tree \\citep{tedana_decision_trees} is a simplified version of the MEICA decision tree \\citep{kundu2013integrated,dupre2021te} without many criteria that do not rely on kappa and rho thresholds. ",
+    "tree_id": "minimal_decision_tree",
+    "used_metrics": [
+        "countsigFT2",
+        "rho",
+        "signal-noise_t",
+        "countsigFS0",
+        "kappa",
+        "variance explained",
+        "dice_FT2",
+        "dice_FS0"
+    ]
+}

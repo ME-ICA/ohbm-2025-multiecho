@@ -1,0 +1,159 @@
+{
+    "ICA_00": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_01": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_02": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_03": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_04": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_05": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_06": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_07": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_08": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_09": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_10": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_11": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_12": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_13": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_14": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_15": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_16": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_17": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_18": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_19": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_20": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_21": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_22": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_23": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_24": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_25": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_26": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_27": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_28": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_29": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_30": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_31": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_32": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_33": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_34": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_35": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_36": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_37": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "ICA_38": {
+        "Description": "ICA fit to dimensionally-reduced optimally combined data.",
+        "Method": "tedana"
+    },
+    "Method": "Independent components analysis with FastICA algorithm implemented by sklearn. "
+}

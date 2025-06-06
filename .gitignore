@@ -1,3 +1,13 @@
+# Repo-specific stuff
+
+five-echo-dataset/tedana_processed/
+five-echo-dataset/tedana_external_regress_processed/
+five-echo-dataset/tmp*
+five-echo-dataset/tmp/
+five-echo-dataset/CSF*
+five-echo-dataset/Segsy/
+five-echo-dataset/p06*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

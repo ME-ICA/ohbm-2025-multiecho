@@ -1,0 +1,215 @@
+{
+    "Method": "Principal components analysis implemented by sklearn. Components are sorted by variance explained in descending order. ",
+    "pca_00": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_01": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_02": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_03": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_04": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_05": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_06": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_07": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_08": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_09": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_10": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_11": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_12": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_13": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_14": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_15": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_16": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_17": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_18": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_19": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_20": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_21": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_22": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_23": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_24": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_25": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_26": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_27": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_28": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_29": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_30": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_31": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_32": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_33": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_34": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_35": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_36": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_37": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_38": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_39": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_40": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_41": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_42": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_43": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_44": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_45": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_46": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_47": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_48": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_49": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_50": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_51": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    },
+    "pca_52": {
+        "Description": "PCA fit to optimally combined data.",
+        "Method": "tedana"
+    }
+}

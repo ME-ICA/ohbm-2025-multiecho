@@ -1,0 +1,68 @@
+{
+    "Component": {
+        "Description": "The unique identifier of each component. This identifier matches column names in the mixing matrix TSV file.",
+        "LongName": "Component identifier"
+    },
+    "classification_tags": {
+        "Description": "A single tag or a comma separated list of tags to describe why a component received its classification",
+        "LongName": "Component classification tags"
+    },
+    "countsigFS0": {
+        "Description": "Number of significant voxels from the cluster-extent thresholded S0 model F-statistic map for each component.",
+        "LongName": "S0 model F-statistic map significant voxel count",
+        "Units": "voxel"
+    },
+    "countsigFT2": {
+        "Description": "Number of significant voxels from the cluster-extent thresholded T2 model F-statistic map for each component.",
+        "LongName": "T2 model F-statistic map significant voxel count",
+        "Units": "voxel"
+    },
+    "dice_FS0": {
+        "Description": "Dice value of cluster-extent thresholded maps of S0-model betas and F-statistics.",
+        "LongName": "S0 model beta map-F-statistic map Dice similarity index",
+        "Units": "arbitrary"
+    },
+    "dice_FT2": {
+        "Description": "Dice value of cluster-extent thresholded maps of T2-model betas and F-statistics.",
+        "LongName": "T2 model beta map-F-statistic map Dice similarity index",
+        "Units": "arbitrary"
+    },
+    "kappa": {
+        "Description": "A pseudo-F-statistic indicating TE-dependence of the component. This metric is calculated by computing fit to the TE-dependence model at each voxel, and then performing a weighted average based on the voxel-wise weights of the component.",
+        "LongName": "Kappa",
+        "Units": "arbitrary"
+    },
+    "normalized variance explained": {
+        "Description": "Normalized variance explained in the optimally combined data of each component.On a scale from 0 to 1.",
+        "LongName": "Normalized variance explained",
+        "Units": "arbitrary"
+    },
+    "optimal sign": {
+        "Description": "Optimal sign determined based on skew direction of component parameter estimates across the brain. In cases where components were left-skewed (-1), the component time series and map weights are flipped prior to metric calculation. This sign applies to the original mixing matrix and map weights. The outputs produced by tedana are already flipped.",
+        "Levels": {
+            "-1": "Component is flipped prior to metric calculation.",
+            "1": "Component is not flipped prior to metric calculation."
+        },
+        "LongName": "Optimal component sign"
+    },
+    "rho": {
+        "Description": "A pseudo-F-statistic indicating TE-independence of the component. This metric is calculated by computing fit to the TE-independence model at each voxel, and then performing a weighted average based on the voxel-wise weights of the component.",
+        "LongName": "Rho",
+        "Units": "arbitrary"
+    },
+    "signal-noise_p": {
+        "Description": "P-value for two-sample t-test of F-statistics from 'signal' voxels (voxels in clusters) against 'noise' voxels (voxels not in clusters) for T2 model.",
+        "LongName": "Signal > noise p-value",
+        "Units": "arbitrary"
+    },
+    "signal-noise_t": {
+        "Description": "T-statistic for two-sample t-test of F-statistics from 'signal' voxels (voxels in clusters) against 'noise' voxels (voxels not in clusters) for T2 model.",
+        "LongName": "Signal > noise t-statistic",
+        "Units": "arbitrary"
+    },
+    "variance explained": {
+        "Description": "Variance explained in the optimally combined data of each component. On a scale from 0 to 100.",
+        "LongName": "Variance explained",
+        "Units": "arbitrary"
+    }
+}
