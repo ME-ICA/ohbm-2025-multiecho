@@ -1,4 +1,4 @@
-# Multi-echo fMRI: OHBM 2024
+# Multi-echo fMRI: OHBM 2025
 
 This contains materials related to tedana and multi-echo fMRI presented at the Organization for Human Brain Mapping 2025 Annual Meeting
 
@@ -53,13 +53,13 @@ Javier Gonzalez-Castillo, Cesar Caballero-Gaudes, Daniel Handwerker, Peter Bande
 [1527](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=2055): *Tedana: expanding flexibility for multi-echo fMRI noise removal methods*  
 **Tedana Community**: Daniel Handwerker, Eneko Uruñuela, David Abbott, Peter Bandettini, Logan Dowdle, Marta Gómez, Javier Gonzalez-Castillo, Sarah Goodale, Kathryn Lamar-Bruno, Neha Reddy, Marly Rubin, Robert Smith, Bahman Tahayori, Taylor Salo
 
-[1529](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=2075): *$R_2^\ast$ Bias Correction for improved χ-Separation*  
+[1529](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=2075): $`R_2^\ast`$ *Bias Correction for improved χ-Separation*  
 Jaewoo Choi, Jonghyo Youn, Byeongpil Moon, Kyeongseon Min, Chungseok Oh, Taechang Kim, Jiye Kim, Jongho Lee
 
 [1534](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=2238): *Reproducibility assessment for functional MRI data from repeated examinations*  
 Petr Hluštík, Ema Lorková, Martin Gajdoš, Michal Mikl
 
-[1541](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=2364): *Exploring $T_2^\ast$-Dependence in Physiological Brain Pulsations using Multi-Echo MR-Encephalography*  
+[1541](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=2364): *Exploring $`T_2^\ast`$-Dependence in Physiological Brain Pulsations using Multi-Echo MR-Encephalography*  
 Antonia Barghoorn, Niels Schwaderlapp, Jürgen Hennig, Maxim Zaitsev
 
 [1570](https://ww6.aievolution.com/hbm2501/Abstracts/viewAbs?abs=3183): *Remarks on FMRI processing, with example scripts in afni_proc.py*  
