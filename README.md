@@ -4,6 +4,15 @@ This contains materials related to tedana and multi-echo fMRI presented at the O
 
 This is a place to centralize multi-echo related content at OHBM 2025. If you see or have a poster or presentation using multi-echo fMRI, submit a pull request or [comment on issue #1](https://github.com/ME-ICA/ohbm-2025-multiecho/issues/1) to have it added.
 
+## Form to share multi-echo fMRI studies and data
+
+We are maintaining a curated list of openly shared multi-echo fMRI datasets at
+https://me-ica.github.io/open-multi-echo-data/ and may start compiling a list of in-progress large-scale multi-echo fMRI studies that are not yet public.
+
+If your studies are not currently listed, [please fill out this form.](https://forms.gle/m5UoKtqJyUmnj7wt9)
+
+We also have a continuously outdated [list of publications using multi-echo fMRI here](https://docs.google.com/spreadsheets/d/1WERojJyxFoqcg_tndUm5Kj0H1UfUc9Ban0jFGGfPaBk/edit?usp=sharing). Adding publications and details about existing publications is weclomed!
+
 ## Multi-echo fMRI users' gathering
 
 Details TBD. If you will be at OHBM and are interested in attending, please [fill out this form](https://forms.gle/jk1APMKsYvWDCw1BA) or reach out to [@handwerkerd](https://github.com/handwerkerd) so that we can find a good time/location.
@@ -24,6 +33,7 @@ Wednesday, Jun 25: 10:30 AM - 11:15 AM
 Poster FriSat 1527
 
 [Abstract](ww6.aievolution.com/hbm2501/Abstracts/viewAbs?subView=1&abs=2055)  
+[Full Poster](tedana_poster_OHBM2025_small.pdf)  
 [Interactive tedana reports used in the poster](https://me-ica.github.io/ohbm-2025-multiecho/)
 
 ## Posters with a focus on multi-echo fMRI
