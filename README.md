@@ -19,8 +19,22 @@ Details TBD. If you will be at OHBM and are interested in attending, please [fil
 
 ## Multi-echo presentations
 
+
+Chris Tailby [Delivering language fMRI at scale: the experience of the Australian Epilepsy Project](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2455)
+In [Symposium: Clinical applications of brain mapping across the lifespan](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2454)  
+Wednesday, June 25: 9:00-9:20
+
+Leigh Sepeta [Applications of cognitive fMRI and invasive mapping in clinical paediatrics](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2457)  
+In [Symposium: Clinical applications of brain mapping across the lifespan](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2454)  
+Wednesday, June 25: 9:20-9:40
+
+David Vaughan [Individualised imaging approaches in pursuit of surgical targets in focal epilepsy](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2458)  
+In [Symposium: Clinical applications of brain mapping across the lifespan](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2454)  
+Wednesday, June 25: 9:40-10:00
+
+
 Adeel Razi [Mechanisms of Mind: Bridging Generative Brain Models and Psychedelic Neuroscience](https://ww6.aievolution.com/hbm2501/Events/viewEv?ev=2655)  
-Keynote lecture: Great Hall  
+**Keynote lecture**: Great Hall  
 Wednesday, Jun 25: 10:30 AM - 11:15 AM
 
 
