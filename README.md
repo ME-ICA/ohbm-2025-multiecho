@@ -15,7 +15,10 @@ We also have a continuously outdated [list of publications using multi-echo fMRI
 
 ## Multi-echo fMRI users' gathering
 
-Details TBD. If you will be at OHBM and are interested in attending, please [fill out this form](https://forms.gle/jk1APMKsYvWDCw1BA) or reach out to [@handwerkerd](https://github.com/handwerkerd) so that we can find a good time/location.
+Thursday, June 26, 19:30PM.
+The Charming Squire
+3/133 Grey St, South Brisbane QLD 4101
+If you plan to attend, please reach out to [@handwerkerd](https://github.com/handwerkerd) so that we have a rough estimate of the number of people to expect.
 
 ## Multi-echo presentations
 
